@@ -1,216 +1,236 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
+    "title": "Transcription API",
+    "version": "1.0.0",
+    "description": "Submit audio files or URLs for transcription and receive outputs in markdown, pdf, json, or summary formats."
   },
   "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
+    { "url": "https://api.yourdomain.com" }
   ],
   "security": [
-    {
-      "bearerAuth": []
-    }
+    { "bearerAuth": [] }
   ],
-  "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "CreateTranscriptionRequestJson": {
+        "type": "object",
+        "required": ["formats"],
+        "properties": {
+          "audio_url": { "type": "string", "format": "uri" },
+          "language": { "type": "string", "example": "en-US" },
+          "formats": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["markdown", "pdf", "json", "summary"]
             }
           },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
+          "webhook_url": { "type": "string", "format": "uri" },
+          "callback_secret": { "type": "string" }
+        }
+      },
+      "CreateTranscriptionResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "example": "tr_01JDX2V3YQ8C6A3V0K1W8E" },
+          "status": {
+            "type": "string",
+            "enum": ["queued", "processing", "completed", "failed"]
+          },
+          "language": { "type": "string", "example": "en-US" },
+          "requested_formats": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "created_at": { "type": "string", "format": "date-time" },
+          "expires_at": { "type": "string", "format": "date-time" },
+          "poll_url": { "type": "string", "example": "/v1/transcriptions/tr_123/status" },
+          "download_base": { "type": "string", "example": "/v1/transcriptions/tr_123/download" },
+          "results": {
+            "type": "object",
+            "properties": {
+              "json": { "type": "object" },
+              "markdown": { "type": "string" },
+              "summary": { "type": "string" }
             }
+          },
+          "download_urls": {
+            "type": "object",
+            "additionalProperties": { "type": "string", "format": "uri" }
           }
         }
       },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string" },
+              "code": { "type": "string" },
+              "message": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/v1/transcriptions": {
       "post": {
-        "description": "Creates a new plant in the store",
+        "summary": "Create a transcription job (file or URL)",
+        "description": "Accepts either an uploaded file (multipart/form-data) or a remote audio URL (application/json).",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "required": true,
           "content": {
             "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateTranscriptionRequestJson" }
+            },
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "type": "object",
+                "required": ["file", "formats"],
+                "properties": {
+                  "file": { "type": "string", "format": "binary" },
+                  "language": { "type": "string" },
+                  "formats": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["markdown", "pdf", "json", "summary"]
+                    }
+                  },
+                  "webhook_url": { "type": "string", "format": "uri" },
+                  "callback_secret": { "type": "string" }
+                }
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Transcription completed (synchronous)",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
+                "schema": { "$ref": "#/components/schemas/CreateTranscriptionResponse" }
+              }
+            }
+          },
+          "202": {
+            "description": "Transcription accepted for processing (asynchronous)",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CreateTranscriptionResponse" }
               }
             }
           },
           "400": {
-            "description": "unexpected error",
+            "description": "Validation error",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+            }
+          },
+          "401": {
+            "description": "Authentication error",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
             }
           }
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/v1/transcriptions/{id}/status": {
+      "get": {
+        "summary": "Check transcription job status",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of plant to delete",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
+          "200": {
+            "description": "Current job status",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "status": {
+                      "type": "string",
+                      "enum": ["queued", "processing", "completed", "failed"]
+                    },
+                    "progress": { "type": "number", "minimum": 0, "maximum": 1 },
+                    "error_message": { "type": "string", "nullable": true }
+                  }
                 }
               }
             }
           }
         }
       }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          }
-        },
+    },
+    "/v1/transcriptions/{id}": {
+      "get": {
+        "summary": "Retrieve completed transcription results",
+        "parameters": [
+          { "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }
+        ],
         "responses": {
           "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
+            "description": "Results bundle",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CreateTranscriptionResponse" }
               }
             }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
           }
         }
       }
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+    "/v1/transcriptions/{id}/download": {
+      "get": {
+        "summary": "Download a single transcription artifact",
+        "parameters": [
+          { "in": "path", "name": "id", "required": true, "schema": { "type": "string" } },
+          {
+            "in": "query",
+            "name": "format",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["markdown", "pdf", "json", "summary"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requested format delivered",
+            "content": {
+              "application/pdf": {},
+              "text/markdown": {},
+              "application/json": {},
+              "text/plain": {}
+            }
+          },
+          "404": {
+            "description": "Job or format not found",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+            }
+          }
+        }
       }
     }
   }
