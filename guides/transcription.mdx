@@ -1,0 +1,234 @@
+---
+title: Transcription
+subtitle: Convert audio to text in the same language
+description: Accurate speech-to-text transcription powered by advanced AI.
+---
+
+## Overview
+
+SkyScribe's transcription feature converts spoken audio into written text in the same language as the original audio. This is ideal when you want an exact written record of what was said.
+
+## How to Transcribe
+
+Choose your preferred method to get started:
+
+<CardGroup cols={3}>
+<Card title="Upload" icon="upload" href="/quickstart/upload">
+Upload an audio or video file from your device
+</Card>
+
+<Card title="Fetch" icon="link" href="/quickstart/fetch">
+Import media from YouTube, TikTok, or other public URLs
+</Card>
+
+<Card title="Record" icon="microphone" href="/quickstart/record">
+Record audio directly from your device
+</Card>
+</CardGroup>
+
+**When selecting your settings:**
+1. Choose **Transcribe** (not Translate)
+2. Select the source language or use auto-detect
+3. Configure optional features (Speaker Diarization, AI Review, etc.)
+
+## Common Use Cases
+
+<AccordionGroup>
+<Accordion title="Meeting Notes" icon="users">
+
+Convert meeting recordings into searchable, shareable text documents.
+
+**Example:** Record team meetings and automatically generate notes for attendees who couldn't join or for future reference.
+
+</Accordion>
+
+<Accordion title="Interview Transcripts" icon="comments">
+
+Transform interview recordings into written transcripts for analysis and quotes.
+
+**Example:** Transcribe research interviews, podcast episodes, or job candidate interviews for easier review and editing.
+
+</Accordion>
+
+<Accordion title="Lecture and Educational Content" icon="graduation-cap">
+
+Create written versions of educational videos and lectures for studying and accessibility.
+
+**Example:** Convert recorded lectures into study materials that students can search, highlight, and review.
+
+</Accordion>
+
+<Accordion title="Podcast and Video Content" icon="podcast">
+
+Generate text versions of audio and video content for SEO, accessibility, and content repurposing.
+
+**Example:** Transcribe podcast episodes to create blog posts, show notes, or searchable archives.
+
+</Accordion>
+
+<Accordion title="Legal and Compliance Documentation" icon="scale-balanced">
+
+Create accurate records of legal proceedings, depositions, or compliance calls.
+
+**Example:** Transcribe legal consultations, court proceedings, or compliance training sessions for official records.
+
+</Accordion>
+</AccordionGroup>
+
+## Key Features
+
+### Speaker Diarization
+
+Identify and label different speakers in multi-person conversations.
+
+**When to use:**
+- Meetings and conference calls with multiple participants
+- Interviews with distinct speakers
+- Panel discussions and roundtables
+- Podcasts with multiple hosts
+
+**Example output:**
+```
+Speaker 1: Welcome to today's meeting. Let's start with updates.
+Speaker 2: I've completed the project analysis. Here are my findings.
+Speaker 1: Excellent. Can you share more details?
+```
+
+### AI Review
+
+Enhance transcript quality with AI-powered polishing.
+
+**What it does:**
+- Removes filler words ("um", "uh", "like")
+- Fixes transcription errors and typos
+- Adds proper capitalization and punctuation
+- Recognizes technical terms and jargon
+- Improves sentence structure
+
+**When to enable:**
+- Technical or specialized content
+- Content with background noise
+- Professional documentation
+- Content for publication
+
+<Warning>
+AI Review adds 10-20% more processing time but significantly improves quality. It preserves timestamps and never invents content.
+</Warning>
+
+### Segmentation Styles
+
+Choose how your transcript is broken into segments:
+
+<CardGroup cols={2}>
+<Card title="Readable" icon="book">
+**~30 second segments** with punctuation and capitalization
+
+Best for documents, meeting notes, and general transcription
+</Card>
+
+<Card title="Subtitle" icon="closed-captioning">
+**Short, punchy segments** optimized for video captions
+
+Best for video captions, subtitles, and social media content
+</Card>
+</CardGroup>
+
+## Improving Transcription Quality
+
+### 1. Use High-Quality Audio
+
+Better audio quality leads to more accurate transcriptions:
+- Clear speech with minimal background noise
+- Good microphone and recording equipment
+- Proper audio levels (avoid too quiet or distorted audio)
+- Reduce echo and reverb when possible
+
+### 2. Specify the Language
+
+While auto-detect works well, manually specifying the language can improve accuracy:
+- **Auto-detect** - Convenient for single-language, clear audio
+- **Manual selection** - Better accuracy when you know the language, especially for mixed-language audio, specialized dialects, or consistent processing
+
+<Tip>
+For best results, use manual language selection when you know what language is spoken in your audio. See our [Language Support guide](/guides/language-support) for details.
+</Tip>
+
+### 3. Enable AI Review
+
+For professional or important transcriptions, AI Review significantly improves:
+- Accuracy of technical terms
+- Readability and formatting
+- Removal of speech disfluencies
+- Overall polish and professionalism
+
+## Transcription vs Translation
+
+Understanding when to use each feature:
+
+<CardGroup cols={2}>
+<Card title="Use Transcription" icon="file-lines">
+
+When you want text in the **same language** as the audio
+
+**Example:** English audio → English text
+
+</Card>
+
+<Card title="Use Translation" icon="language" href="/guides/translation">
+
+When you want text in a **different language** from the audio
+
+**Example:** Spanish audio → English text
+
+Learn more about translation →
+
+</Card>
+</CardGroup>
+
+## Output Formats
+
+Download your transcripts in multiple formats:
+
+- **PDF** - Formatted document for sharing and printing
+- **DOC** - Microsoft Word format for editing
+- **TXT** - Plain text for simple use cases
+- **MD** - Markdown format for documentation
+- **SRT/VTT** - Subtitle formats with timestamps
+- **CSV** - Structured data with segments and timestamps
+- **JSON** - Programmatic access with full metadata
+
+## Supported Languages
+
+SkyScribe supports transcription in **99 languages**. Language detection can be automatic or manual.
+
+<Card title="View All Languages" icon="language" href="/guides/language-support">
+See the complete list of supported languages, language detection guidance, and best practices.
+</Card>
+
+## Best Practices
+
+1. **Test your setup** - Record a short test clip to verify audio quality before long sessions
+2. **Choose the right format** - Use readable segments for documents, subtitle segments for videos
+3. **Enable AI Review for important content** - Professional and published content benefits significantly
+4. **Use speaker diarization for conversations** - Makes multi-person transcripts much easier to follow
+5. **Review critical transcripts** - Always review transcriptions for business-critical or legal use
+
+## Limitations
+
+Transcription accuracy varies based on audio quality, accents, background noise, and content complexity. For detailed information:
+
+- See [Language Support](/guides/language-support) for language-specific details and accent variations
+- Review [Model documentation](/guides/whisper-model) for technical limitations and performance characteristics
+
+<Note>
+We recommend testing with your specific content type and reviewing output for critical use cases.
+</Note>
+
+## Need Help?
+
+If you have questions about transcription capabilities or quality:
+
+- Check our [Language Support guide](/guides/language-support) for details on specific languages
+- Review the [Model documentation](/guides/whisper-model) to understand the AI powering transcription
+- Contact our support team at support@sky-scribe.com
+- Report transcription issues to help us improve

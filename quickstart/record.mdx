@@ -1,0 +1,240 @@
+---
+title: Transcribe live recordings
+subtitle: Learn how to record and transcribe audio in real-time.
+description: Capture audio directly from your device for quick notes or short audio clips.
+---
+
+## Overview
+
+- Record audio from your device microphone
+- Configure transcription settings
+- Download your transcript
+
+## Step 1: Start recording
+
+<Steps>
+<Step title="Sign in to your account">
+
+Sign in to your SkyScribe account, then navigate to your dashboard at [https://app.sky-scribe.com/dashboard](https://app.sky-scribe.com/dashboard).
+
+</Step>
+
+<Step title="Select Record method">
+
+Click on **Record** as your transcription method.
+
+</Step>
+
+<Step title="Grant microphone access">
+
+When recording for the first time, your device will ask for microphone access permission. Simply grant it and the recording interface will appear.
+
+</Step>
+
+<Step title="Start recording">
+
+Click the **Record** button to start capturing audio directly from your device microphone.
+
+<Tip>
+Hit record, speak your mind, and get text back. Simple as that.
+</Tip>
+
+</Step>
+</Steps>
+
+## Step 2: Transcribe or translate
+
+Select how you want to process your audio:
+
+<Tabs>
+<Tab title="Transcribe">
+
+**Transcribe** converts your audio to text in the same language as the original audio. This is ideal when you want an exact written record of what was said.
+
+**Use cases:**
+- Meeting notes
+- Interview transcripts
+- Podcast transcriptions
+- Lecture notes
+
+</Tab>
+
+<Tab title="Translate">
+
+**Translate** converts your audio to text in a different language. The audio will be transcribed and then translated into your target language.
+
+**Use cases:**
+- Translating foreign language content
+- Creating multilingual subtitles
+- International content localization
+
+</Tab>
+</Tabs>
+
+## Step 3: Select language
+
+<Tabs>
+<Tab title="For Transcribe">
+
+Choose the language of your audio file:
+
+- **Auto-detect** (Recommended): SkyScribe will automatically detect the language spoken in your audio or video. This works best for single-language audio.
+- **Manual selection**: Choose a specific language if you know what language is spoken in the audio.
+
+<Tip>
+Auto-detect is highly accurate for single-language audio and saves you time. Use manual selection for mixed-language audio, specialized dialects, or when you need consistent language processing.
+</Tip>
+
+<Note>
+SkyScribe supports 99 languages. [View the complete language list](/guides/language-support) and performance details.
+</Note>
+
+</Tab>
+
+<Tab title="For Translate">
+
+Select the **target language** you want your transcript translated into. Your audio will be transcribed in its original language and then translated to your selected language.
+
+<Note>
+SkyScribe supports translation between 99 languages powered by OpenAI Whisper. [Learn more about language support](/guides/language-support).
+</Note>
+
+</Tab>
+</Tabs>
+
+## Step 4: Speaker diarization (optional)
+
+Speaker diarization identifies and labels different speakers in your audio. When enabled, your transcript will indicate who is speaking at each point in the conversation.
+
+<Note>
+**Example output:**
+```
+Speaker 1: Hello, how are you today?
+Speaker 2: I'm doing great, thanks for asking.
+Speaker 1: That's wonderful to hear.
+```
+</Note>
+
+<Tabs>
+<Tab title="When to use it">
+
+- Multi-person interviews
+- Meetings and conference calls
+- Podcasts with multiple hosts
+- Panel discussions
+
+</Tab>
+<Tab title="When to skip it">
+
+- Single-speaker content (lectures, solo podcasts)
+- When speaker identity doesn't matter
+- Faster processing time needed
+
+</Tab>
+</Tabs>
+
+## Step 5: AI Review (optional)
+
+AI Review adds an additional enhancement pass after your transcripts are ready. It uses advanced AI to polish and improve your transcriptions.
+
+<CardGroup cols={2}>
+<Card title="Content Integrity" icon="shield-check">
+
+Never invents content - only fixes errors while preserving timestamps
+
+</Card>
+<Card title="Remove Filler Words" icon="eraser">
+
+Eliminates "um", "uh", "like" and adds proper capitalization and punctuation
+
+</Card>
+<Card title="Fix Typos" icon="spell-check">
+
+Corrects transcription errors and misspellings
+
+</Card>
+<Card title="Context-Aware" icon="brain">
+
+Identifies technical terms (e.g., "API", "Kubernetes") and improves sentence structure
+
+</Card>
+</CardGroup>
+
+<Warning>
+AI Review may add 10-20% more processing time but significantly improves transcript quality, especially for technical content or recordings with background noise.
+</Warning>
+
+## Step 6: Segmentation style (optional)
+
+Expand the **Advanced Settings** section and choose how your transcript should be broken into segments:
+
+<CardGroup cols={2}>
+<Card title="Readable" icon="book">
+Segments of ~30 seconds with punctuation and capitalization for easier reading.
+
+**Best for:**
+
+- Documents and articles
+- Meeting notes
+- General transcription
+</Card>
+
+<Card title="Subtitle" icon="closed-captioning">
+Short, punchy segments tuned for subtitles and captions.
+
+**Best for:**
+
+- Video captions
+- Subtitles
+- Social media content
+</Card>
+</CardGroup>
+
+## Step 7: Finish recording
+
+When you're done speaking, click the **Stop** button to end the recording.
+
+<Steps>
+<Step>
+
+Your recording will be processed automatically. You'll see a progress indicator showing the transcription status.
+
+</Step>
+
+<Step>
+
+Processing time depends on:
+- Recording length
+- Selected settings (AI Review adds extra time)
+- Current queue size
+
+<Tip>
+Live recordings are usually processed quickly since the audio is captured locally.
+</Tip>
+
+</Step>
+
+<Step>
+
+Once complete, you can:
+- **View** your transcript online
+- **Download** in multiple formats: PDF, DOC, TXT, MD, SRT, VTT, CSV, or JSON
+- **Share** with team members ([learn more about collaboration](#))
+- **Generate summaries** or extract information using templates ([learn about templates](#))
+
+</Step>
+</Steps>
+
+## What's next
+
+In this tutorial, you've learned how to record and transcribe audio in real-time using the SkyScribe dashboard.
+
+Want to learn more?
+
+- Learn how to [upload files directly](/quickstart/upload) from your device
+- Explore [fetching media from URLs](/quickstart/fetch) like YouTube or TikTok
+- Check out the full [API documentation](/api-reference/introduction)
+
+## Need some help?
+
+If you get stuck, or have any other questions, we'd love to help you out. Contact our support team at support@sky-scribe.com or create a support ticket.

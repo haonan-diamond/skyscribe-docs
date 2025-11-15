@@ -1,33 +1,171 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: API Documentation
+subtitle: Integrate transcription into your systems using the SkyScribe API
+description: Complete API reference for integrating SkyScribe transcription into your applications.
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Welcome to the SkyScribe API
 
-## Welcome
+The SkyScribe API enables you to integrate powerful speech-to-text transcription capabilities into your applications. Whether you're building voice assistants, content creation tools, or accessibility features, our API provides fast, accurate transcription for audio and video files.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+## Key Features
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+<CardGroup cols={2}>
+  <Card
+    title="Multiple Input Methods"
+    icon="upload"
+  >
+    Upload files, fetch from URLs, or stream audio in real-time
+  </Card>
+  <Card
+    title="High Accuracy"
+    icon="bullseye"
+  >
+    Industry-leading transcription accuracy powered by advanced AI models
+  </Card>
+  <Card
+    title="Fast Processing"
+    icon="bolt"
+  >
+    Get transcripts in minutes with our optimized processing pipeline
+  </Card>
+  <Card
+    title="Simple Integration"
+    icon="code"
+  >
+    RESTful API with SDKs for Python and JavaScript
+  </Card>
+</CardGroup>
+
+## Base URL
+
+All API requests should be made to:
+
+```
+https://api.skyscribe.ai/v1
+```
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API endpoints require authentication using API keys. Include your API key in the `Authorization` header of each request:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+### Getting your API key
+
+1. Sign up for a SkyScribe account
+2. Navigate to your dashboard
+3. Go to the API Keys section
+4. Create a new API key or copy an existing one
+
+<Warning>
+Keep your API keys secure and never share them publicly. If you believe your key has been compromised, revoke it immediately and generate a new one.
+</Warning>
+
+## Rate Limits
+
+API requests are subject to the following rate limits based on your plan:
+
+| Plan | Requests per minute | Concurrent transcriptions |
+|------|---------------------|---------------------------|
+| Free | 10 | 2 |
+| Pro | 60 | 10 |
+| Enterprise | Custom | Custom |
+
+If you exceed your rate limit, you'll receive a `429 Too Many Requests` response.
+
+## Supported Audio Formats
+
+SkyScribe supports a wide range of audio and video formats:
+
+**Audio formats:**
+- MP3
+- WAV
+- M4A
+- FLAC
+- OGG
+- AAC
+
+**Video formats:**
+- MP4
+- MOV
+- AVI
+- MKV
+- WEBM
+
+**Maximum file size:** 500MB per file
+
+## Quick Start
+
+Get started with the SkyScribe API in just a few steps:
+
+<Steps>
+<Step title="Get your API key">
+Sign up and retrieve your API key from the dashboard
+</Step>
+
+<Step title="Choose your method">
+Select how you want to send audio: upload, fetch from URL, or stream
+</Step>
+
+<Step title="Make your first request">
+Use our SDKs or make direct HTTP requests to transcribe your first file
+</Step>
+
+<Step title="Retrieve your transcript">
+Poll for the transcription status and get your completed transcript
+</Step>
+</Steps>
+
+## Response Format
+
+All API responses are returned in JSON format. Successful responses include a `200 OK` status code. Errors include appropriate HTTP status codes and error messages:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
+{
+  "error": {
+    "message": "Invalid API key",
+    "code": "invalid_api_key",
+    "status": 401
   }
-]
+}
 ```
+
+## Common Error Codes
+
+| Status Code | Description |
+|-------------|-------------|
+| 400 | Bad Request - Invalid parameters |
+| 401 | Unauthorized - Invalid or missing API key |
+| 404 | Not Found - Resource doesn't exist |
+| 429 | Too Many Requests - Rate limit exceeded |
+| 500 | Internal Server Error - Something went wrong on our end |
+
+## SDKs and Libraries
+
+We provide official SDKs to make integration easier:
+
+<CardGroup cols={2}>
+  <Card
+    title="Python SDK"
+    icon="python"
+    href="https://github.com/skyscribe/python-sdk"
+  >
+    Install with `pip install skyscribe`
+  </Card>
+  <Card
+    title="JavaScript SDK"
+    icon="js"
+    href="https://github.com/skyscribe/javascript-sdk"
+  >
+    Install with `npm install skyscribe`
+  </Card>
+</CardGroup>
+
+## Need Help?
+
+- Check out our [quickstart guides](/quickstart/upload) for step-by-step tutorials
+- View the [endpoint reference](/api-reference/endpoint/create) for detailed API documentation
+- Contact support at support@sky-scribe.com for assistance

@@ -16,8 +16,31 @@
           {
             "group": "Getting started",
             "pages": [
-              "index",
-              "quickstart"
+              "index"
+            ]
+          },
+          {
+            "group": "Quickstart",
+            "pages": [
+              "quickstart/upload",
+              "quickstart/fetch",
+              "quickstart/record"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "guides/transcription",
+              "guides/translation",
+              "guides/language-support",
+              "guides/extract",
+              "guides/templates"
+            ]
+          },
+          {
+            "group": "Technology",
+            "pages": [
+              "guides/whisper-model"
             ]
           }
         ]

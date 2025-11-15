@@ -1,0 +1,250 @@
+---
+title: Model
+subtitle: The AI powering SkyScribe's transcription
+description: Learn about the automatic speech recognition system that powers our transcription service.
+---
+
+## Overview
+
+SkyScribe uses OpenAI's [Whisper](https://openai.com/index/whisper/), a state-of-the-art automatic speech recognition (ASR) system, to power our audio-to-text transcription service. Whisper delivers industry-leading accuracy across multiple languages and handles various audio conditions with exceptional robustness.
+
+## What is Whisper?
+
+Whisper is an automatic speech recognition system trained on 680,000 hours of multilingual and multitask supervised data collected from the web. This extensive training enables:
+
+- **Improved robustness** to accents, background noise, and technical language
+- **Multilingual transcription** in dozens of languages
+- **Translation capabilities** from multiple languages into English
+- **High accuracy** across diverse audio conditions
+
+## Model Architecture
+
+Whisper uses a simple end-to-end approach, implemented as an encoder-decoder Transformer:
+
+<Steps>
+<Step title="Audio Processing">
+
+Input audio is split into 30-second chunks and converted into a log-Mel spectrogram
+
+</Step>
+
+<Step title="Encoding">
+
+The spectrogram is passed through an encoder that processes the audio features
+
+</Step>
+
+<Step title="Decoding">
+
+A decoder predicts the corresponding text caption, along with special tokens for:
+- Language identification
+- Phrase-level timestamps
+- Multilingual speech transcription
+- Speech translation to English
+
+</Step>
+</Steps>
+
+## Language Support
+
+Whisper supports transcription in **99 languages** and translation to English. The model was trained on 680,000 hours of multilingual data, with about one-third being non-English content.
+
+<Card title="View Language Support" icon="language" href="/guides/language-support">
+
+See the complete list of supported languages, performance details, and best practices for multilingual transcription.
+
+</Card>
+
+## Accuracy & Performance
+
+### Superior Robustness
+
+Whisper's training on large and diverse datasets results in exceptional performance:
+
+- **50% fewer errors** compared to specialized models when tested across diverse datasets
+- **Handles background noise** effectively due to real-world training data
+- **Recognizes technical language** and domain-specific terminology
+- **Works with various accents** without additional fine-tuning
+
+### Translation Capabilities
+
+Whisper excels at speech-to-text translation:
+
+- Transcribes audio in the original language
+- Translates to English with high accuracy
+- Supports translation from all 99 supported languages
+
+### Zero-Shot Performance
+
+Unlike models fine-tuned for specific datasets, Whisper performs exceptionally well "zero-shot" (without specific training) across:
+
+- Various audio quality levels
+- Different recording environments
+- Multiple accents and dialects
+- Technical and specialized content
+
+### Transcription Speed
+
+Processing time varies based on several factors:
+
+<CardGroup cols={2}>
+<Card title="Typical Speed" icon="clock">
+
+**1-3 minutes** for a 30-minute audio file under normal conditions
+
+</Card>
+
+<Card title="Factors Affecting Speed" icon="gauge">
+
+- Audio/video length
+- File format and quality
+- Current queue size
+- Optional features enabled
+
+</Card>
+</CardGroup>
+
+<Note>
+**Processing time factors:**
+- **AI Review**: Adds 10-20% more time for enhanced quality
+- **Speaker Diarization**: Requires additional processing for speaker identification
+- **Video files**: May take longer due to audio extraction
+- **Queue size**: Processing time increases during peak usage
+</Note>
+
+<Tip>
+For typical use cases, expect roughly **1/10th real-time** processing. A 30-minute recording typically processes in 1-3 minutes.
+</Tip>
+
+## How SkyScribe Uses Whisper
+
+SkyScribe leverages Whisper's capabilities to provide:
+
+<CardGroup cols={2}>
+<Card title="High Accuracy Transcription" icon="bullseye">
+
+Industry-leading transcription quality across 99 languages
+
+</Card>
+
+<Card title="Robust Processing" icon="shield">
+
+Reliable performance even with background noise or varying audio quality
+
+</Card>
+
+<Card title="Multilingual Support" icon="language">
+
+Seamless transcription and translation across dozens of languages
+
+</Card>
+
+<Card title="Technical Content" icon="code">
+
+Accurate recognition of technical terms, jargon, and specialized vocabulary
+
+</Card>
+</CardGroup>
+
+## Performance and Limitations
+
+While Whisper exhibits state-of-the-art performance across many benchmarks, it's important to understand its strengths and limitations.
+
+### Strengths
+
+<CardGroup cols={3}>
+<Card title="Accent Robustness" icon="users">
+
+Improved robustness to diverse accents compared to many existing ASR systems
+
+</Card>
+
+<Card title="Noise Handling" icon="volume-xmark">
+
+Better performance in environments with background noise and challenging audio conditions
+
+</Card>
+
+<Card title="Technical Language" icon="flask">
+
+Strong recognition of technical terminology and specialized vocabulary
+
+</Card>
+</CardGroup>
+
+### Known Limitations
+
+<Warning>
+**Important:** Understanding these limitations helps you get the best results from SkyScribe.
+</Warning>
+
+#### 1. Hallucinations
+
+The model may occasionally include text that wasn't actually spoken in the audio input. This occurs because:
+
+- Training data includes weakly supervised, large-scale noisy data
+- The model combines predicting the next word with transcribing the audio
+- The model uses its general language knowledge, which can sometimes lead to inference beyond what was said
+
+<Tip>
+**Mitigation:** Our AI Review feature helps detect and correct hallucinations. Enable it in Advanced Settings for critical transcriptions.
+</Tip>
+
+#### 2. Performance Variation Across Languages
+
+The model's performance varies across different languages based on the amount of training data available for each language.
+
+<Tip>
+See our [Language Support guide](/guides/language-support) for more details. We recommend testing with your specific language to ensure it meets your accuracy requirements.
+</Tip>
+
+#### 3. Accent and Dialect Variations
+
+The model exhibits disparate performance across:
+
+- Different accents and dialects of the same language
+- Speakers of different genders, races, and ages
+- Various demographic groups
+
+<Note>
+Word error rates may be higher for certain demographic groups. We continuously work to improve fairness and accuracy across all user groups.
+</Note>
+
+#### 4. Repetitive Text Generation
+
+The sequence-to-sequence architecture can occasionally produce repetitive text. While we use:
+
+- Beam search techniques
+- Temperature scheduling
+- Post-processing algorithms
+
+...complete elimination of this behavior is not always possible, especially with:
+- Audio with unclear speech patterns
+- Very long recordings
+- Challenging audio conditions
+
+<Warning>
+**For critical use cases:** We recommend reviewing transcripts to ensure they meet your accuracy requirements.
+</Warning>
+
+## Best Practices
+
+To get optimal results with SkyScribe:
+
+1. **Use high-quality audio** when possible (clear speech, minimal background noise)
+2. **Enable AI Review** for important transcriptions to catch hallucinations and errors
+3. **Specify the language** manually if auto-detect isn't working well for your dialect
+4. **Review transcripts** for critical applications to ensure accuracy
+5. **Report issues** to our support team to help us improve
+
+## Learn More
+
+Want to dive deeper into Whisper's capabilities and limitations?
+
+- Read the [Whisper research paper](https://cdn.openai.com/papers/whisper.pdf)
+- View the [Whisper model card](https://github.com/openai/whisper/blob/main/model-card.md)
+- Explore the [open-source code](https://github.com/openai/whisper)
+
+## Need Help?
+
+If you have questions about language support, transcription accuracy, or limitations, contact our support team at support@sky-scribe.com.

@@ -1,0 +1,448 @@
+---
+title: Templates
+subtitle: Create custom extraction templates
+description: Build and manage templates that define what information to extract from your transcripts.
+---
+
+## Overview
+
+Templates tell the AI what information to extract from your transcripts and how to format it. SkyScribe provides pre-defined templates for common use cases, and you can create custom templates for your specific needs.
+
+## What are Templates?
+
+Templates are instructions that guide AI to:
+- Identify relevant information in transcripts
+- Structure information in a specific format
+- Focus on what matters for your use case
+
+**Think of templates as:**
+- A recipe for extracting specific insights
+- Instructions for organizing information
+- A reusable format for consistent results
+
+## Accessing Templates
+
+Navigate to the **Templates** tab to:
+- View all available templates
+- Create new templates
+- Edit existing templates
+- Delete custom templates
+
+<Note>
+Pre-defined templates (Executive Summary, Team Meeting, Candidate Interview, Lecture Notes, YouTube Summary) cannot be deleted but can be used as inspiration for custom templates.
+</Note>
+
+## Creating a Custom Template
+
+<Steps>
+<Step title="Open Templates tab">
+
+Navigate to the **Templates** tab in your dashboard.
+
+</Step>
+
+<Step title="Click Create New Template">
+
+Click the **Create New Template** or **+ New Template** button.
+
+</Step>
+
+<Step title="Name your template">
+
+Give your template a clear, descriptive name that reflects its purpose.
+
+**Examples:**
+- "Sales Call Summary"
+- "Product Feedback Analysis"
+- "Weekly Standup Notes"
+- "Customer Support Insights"
+
+</Step>
+
+<Step title="Write template instructions">
+
+Define what information you want extracted and how it should be formatted.
+
+**Good template instructions include:**
+- What sections to create
+- What information to include in each section
+- How to format the output
+- Any specific focus areas
+
+</Step>
+
+<Step title="Test your template">
+
+Save the template and test it on a sample transcript to see if it extracts the right information.
+
+</Step>
+
+<Step title="Refine as needed">
+
+Edit and improve your template based on the results.
+
+</Step>
+</Steps>
+
+## Writing Effective Templates
+
+### Template Structure
+
+A well-structured template clearly defines sections and what belongs in each:
+
+```
+[Section Name]
+- What to extract
+- How to format it
+- Level of detail
+
+[Another Section]
+- Different focus area
+- Specific formatting
+```
+
+### Example: Sales Call Template
+
+```
+Call Overview
+Provide a brief summary of the call including the prospect name, company,
+and main topics discussed.
+
+Pain Points & Needs
+List the key challenges and needs mentioned by the prospect. Include
+specific examples they shared.
+
+Product Interest
+Outline which products or features the prospect showed interest in and why.
+
+Objections & Concerns
+Document any objections, concerns, or hesitations raised during the call.
+
+Next Steps
+List all agreed-upon action items with owners and timelines:
+• Action item - Owner - Timeline
+
+Opportunity Score (1-10)
+Rate the likelihood of closing this deal based on the conversation, with
+brief reasoning.
+```
+
+### Tips for Better Templates
+
+<CardGroup cols={2}>
+<Card title="Be Specific" icon="bullseye">
+
+Clear instructions produce better results
+
+**Good:** "List all action items with owners and deadlines"
+
+**Bad:** "Summarize the meeting"
+
+</Card>
+
+<Card title="Use Formatting" icon="list">
+
+Define how you want information structured
+
+Use bullets, numbers, sections, or tables to organize output
+
+</Card>
+
+<Card title="Provide Examples" icon="lightbulb">
+
+Show the AI what you want
+
+Include sample outputs or formats in your template
+
+</Card>
+
+<Card title="Focus Content" icon="filter">
+
+Tell the AI what matters most
+
+Prioritize important information over comprehensive coverage
+
+</Card>
+</CardGroup>
+
+## Pre-defined Template Examples
+
+Learn from SkyScribe's pre-defined templates:
+
+### Team Meeting Template
+
+```
+Overview
+The team reviewed company progress, key milestones, and upcoming goals.
+Leadership shared updates on product development, funding, and growth
+strategies. Teams highlighted recent wins and challenges. The meeting
+concluded with a Q&A and a discussion on cross-functional collaboration
+for the next quarter.
+
+Timeline Outline
+• Company Progress & Key Milestones
+• Product Development Updates
+• Funding & Growth Strategies
+• Team Wins & Challenges
+```
+
+**What makes this effective:**
+- Clear overview section
+- Structured timeline with bullet points
+- Focuses on key topics
+- Easy to scan
+
+### Candidate Interview Template
+
+```
+Candidate Background
+[Summary of experience, education, and current role]
+
+Key Qualifications
+• Qualification 1
+• Qualification 2
+• Qualification 3
+
+Strengths
+[Notable strengths demonstrated in interview]
+
+Areas of Concern
+[Any concerns or gaps identified]
+
+Cultural Fit
+[Assessment of how candidate aligns with company values]
+
+Recommendation
+[Hire/No hire with reasoning]
+```
+
+**What makes this effective:**
+- Organized decision-making framework
+- Clear sections for different criteria
+- Actionable recommendation
+- Consistent evaluation across candidates
+
+## Editing Templates
+
+To modify an existing template:
+
+1. Navigate to the **Templates** tab
+2. Find the template you want to edit
+3. Click the **Edit** icon
+4. Make your changes
+5. Save the updated template
+
+<Warning>
+Editing a template affects future extractions but does not update previous extracts created with that template.
+</Warning>
+
+## Deleting Templates
+
+To remove a custom template:
+
+1. Navigate to the **Templates** tab
+2. Find the template you want to delete
+3. Click the **Delete** icon
+4. Confirm deletion
+
+<Note>
+Only custom templates can be deleted. Pre-defined templates are permanent but you can create modified versions with different names.
+</Note>
+
+## Template Best Practices
+
+### 1. Start with Pre-defined Templates
+
+Use SkyScribe's templates as starting points and modify them for your needs.
+
+### 2. Test and Iterate
+
+Create the template, test it on real transcripts, refine based on results.
+
+### 3. Keep Templates Focused
+
+Better to have multiple specific templates than one that tries to do everything.
+
+### 4. Use Consistent Naming
+
+Name templates clearly so they're easy to find and understand:
+- ✅ "Product Demo Follow-up"
+- ✅ "Weekly Team Sync Notes"
+- ❌ "Template 1"
+- ❌ "New Template"
+
+### 5. Document Your Templates
+
+Add context in template names or instructions about when to use them.
+
+## Common Template Types
+
+<AccordionGroup>
+<Accordion title="Meeting Templates" icon="users">
+
+**Use for:** Team meetings, standups, planning sessions
+
+**Common sections:**
+- Meeting overview
+- Key decisions
+- Action items with owners
+- Discussion topics
+- Blockers and challenges
+- Next steps and timeline
+
+</Accordion>
+
+<Accordion title="Interview Templates" icon="user-tie">
+
+**Use for:** Job interviews, customer interviews, research
+
+**Common sections:**
+- Participant background
+- Key insights or qualifications
+- Strengths and weaknesses
+- Notable quotes
+- Recommendations or next steps
+
+</Accordion>
+
+<Accordion title="Content Summary Templates" icon="file-alt">
+
+**Use for:** Podcasts, webinars, lectures, videos
+
+**Common sections:**
+- Content overview
+- Main topics covered
+- Key takeaways
+- Notable quotes
+- Chapter breakdown with timestamps
+
+</Accordion>
+
+<Accordion title="Analysis Templates" icon="chart-line">
+
+**Use for:** Research analysis, feedback collection, data review
+
+**Common sections:**
+- Overview of findings
+- Key themes
+- Supporting examples
+- Insights and patterns
+- Recommendations
+
+</Accordion>
+</AccordionGroup>
+
+## Template Examples by Industry
+
+### Customer Support
+
+```
+Call Summary
+Brief overview of the customer issue and resolution.
+
+Customer Information
+• Name, Account ID
+• Product/Service affected
+• Priority level
+
+Issue Description
+Detailed description of the problem reported.
+
+Troubleshooting Steps
+List all steps taken to diagnose and resolve the issue.
+
+Resolution
+Final solution and outcome.
+
+Follow-up Required
+Any pending actions or customer follow-ups needed.
+```
+
+### Product Management
+
+```
+User Feedback Summary
+Overview of feedback session and participant details.
+
+Feature Requests
+• Feature 1 - User pain point
+• Feature 2 - User pain point
+
+Pain Points
+Current frustrations and challenges mentioned.
+
+Positive Feedback
+What users love about the product.
+
+Competitive Mentions
+Any competitor products mentioned and why.
+
+Action Items
+Product team next steps based on feedback.
+```
+
+### Sales & Business Development
+
+```
+Prospect Overview
+Company, contact person, and call purpose.
+
+Current Situation
+Prospect's current challenges and needs.
+
+Budget & Timeline
+Discussed budget and decision timeline.
+
+Decision Makers
+Who is involved in the decision process.
+
+Competitive Landscape
+Other solutions being considered.
+
+Next Steps
+• Step 1 - Owner - Date
+• Step 2 - Owner - Date
+
+Win Probability: [Score/10]
+```
+
+## Troubleshooting
+
+### Extract Doesn't Match Template
+
+**Problem:** AI extraction doesn't follow your template structure
+
+**Solutions:**
+- Make instructions more specific
+- Provide example formats
+- Break complex sections into simpler parts
+- Test with different transcripts
+
+### Missing Information
+
+**Problem:** Important details not included in extract
+
+**Solutions:**
+- Explicitly list what to include
+- Add section specifically for that information
+- Check if information exists in transcript
+- Edit transcript to fix any errors
+
+### Too Much Detail
+
+**Problem:** Extract is too long or includes unnecessary information
+
+**Solutions:**
+- Add length guidelines ("Keep to 3-5 bullet points")
+- Specify what to exclude
+- Focus template on key priorities only
+- Use "brief summary" or "highlights only" language
+
+## Need Help?
+
+If you have questions about creating templates:
+
+- See the [Extract guide](/guides/extract) for how to use templates
+- Check [example templates](#pre-defined-template-examples) for inspiration
+- Contact our support team at support@sky-scribe.com
+- Share your template ideas to help us improve

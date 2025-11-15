@@ -1,0 +1,180 @@
+---
+title: Translation
+subtitle: Translate audio between 99 languages
+description: Convert spoken content from one language to text in another language.
+---
+
+## Overview
+
+SkyScribe's translation feature converts spoken audio in one language into written text in another language. This is powered by OpenAI [Whisper](https://openai.com/index/whisper/)'s multilingual capabilities.
+
+**Translation workflow:**
+1. Audio is transcribed in its original language
+2. The transcript is translated to your target language
+3. Optional AI Review polishes the translated text
+
+## Supported Languages
+
+SkyScribe supports translation between any of the **99 supported languages**.
+
+<Card title="View All Languages" icon="language" href="/guides/language-support">
+See the complete list of supported languages and performance details.
+</Card>
+
+## How to Translate
+
+Translation follows the same workflow as transcription. Choose your preferred method:
+
+<CardGroup cols={3}>
+<Card title="Upload" icon="upload" href="/quickstart/upload">
+Upload an audio or video file from your device
+</Card>
+
+<Card title="Fetch" icon="link" href="/quickstart/fetch">
+Import media from YouTube, TikTok, or other public URLs
+</Card>
+
+<Card title="Record" icon="microphone" href="/quickstart/record">
+Record audio directly from your device
+</Card>
+</CardGroup>
+
+**When selecting your settings:**
+1. Choose **Translate** (not Transcribe)
+2. Select your **target language** - the language you want the text translated into
+3. Optionally specify the source language, or use auto-detect
+4. Configure optional features (Speaker Diarization, AI Review, etc.)
+
+## Common Use Cases
+
+<AccordionGroup>
+<Accordion title="International Content Localization" icon="globe">
+
+Translate videos, podcasts, or presentations into multiple languages for global audiences.
+
+**Example:** Translate an English product demo video into Spanish, French, and German for international marketing campaigns.
+
+</Accordion>
+
+<Accordion title="Multilingual Subtitles" icon="closed-captioning">
+
+Create subtitles and captions in different languages for video content.
+
+**Example:** Add Spanish subtitles to English YouTube videos to reach Spanish-speaking audiences.
+
+</Accordion>
+
+<Accordion title="Foreign Language Content Analysis" icon="magnifying-glass">
+
+Understand and analyze content in languages you don't speak.
+
+**Example:** Translate customer feedback videos in Japanese to English for your product team.
+
+</Accordion>
+
+<Accordion title="Cross-Language Meeting Notes" icon="users">
+
+Translate meeting recordings for international teams working across language barriers.
+
+**Example:** Translate a French team meeting into English for your US-based stakeholders.
+
+</Accordion>
+
+<Accordion title="Educational Content" icon="graduation-cap">
+
+Make educational videos and lectures accessible to students who speak different languages.
+
+**Example:** Translate university lecture recordings from English to Mandarin for international students.
+
+</Accordion>
+</AccordionGroup>
+
+## Improving Translation Quality
+
+### 1. Use AI Review
+
+AI Review enhances translation quality by:
+- Fixing mistranslations and awkward phrasing
+- Ensuring technical terms are translated correctly
+- Improving sentence structure and readability
+- Preserving timestamps for subtitle use
+
+<Warning>
+AI Review adds 10-20% more processing time but significantly improves translation quality, especially for technical or specialized content.
+</Warning>
+
+### 2. Choose High-Quality Audio
+
+Translation quality depends on accurate transcription. Better audio leads to better translations:
+- Clear speech with minimal background noise
+- Good recording equipment
+- Proper audio levels (not too quiet or distorted)
+
+### 3. Specify the Source Language
+
+You can choose to auto-detect the source language or manually specify it for better accuracy:
+- **Auto-detect** - Convenient when unsure of the language
+- **Manual selection** - Better accuracy when you know the source language, especially for mixed-language audio, specialized dialects, or consistent processing
+
+## Translation vs Transcription
+
+Understanding when to use each feature:
+
+<CardGroup cols={2}>
+<Card title="Use Transcription" icon="file-lines" href="/guides/transcription">
+
+When you want text in the **same language** as the audio
+
+**Example:** English audio → English text
+
+Learn more about transcription →
+
+</Card>
+
+<Card title="Use Translation" icon="language">
+
+When you want text in a **different language** from the audio
+
+**Example:** Spanish audio → English text
+
+</Card>
+</CardGroup>
+
+## Output Formats
+
+Translated text is available in the same formats as transcriptions:
+
+- **PDF** - Formatted document for sharing and printing
+- **DOC** - Microsoft Word format for editing
+- **TXT** - Plain text for simple use cases
+- **MD** - Markdown format for documentation
+- **SRT/VTT** - Subtitle formats with timestamps
+- **CSV** - Structured data with segments and timestamps
+- **JSON** - Programmatic access with full metadata
+
+## Limitations
+
+Translation accuracy varies based on the language pair, audio quality, and content complexity. For detailed information about model limitations and performance:
+
+- See [Language Support](/guides/language-support) for language-specific details
+- Review [Model documentation](/guides/whisper-model) for technical limitations
+
+<Note>
+We recommend testing translations with your specific content and reviewing output for critical use cases.
+</Note>
+
+## Best Practices
+
+1. **Test with your content** - Translation quality varies by language pair and content type
+2. **Enable AI Review** - Significantly improves translation quality and readability
+3. **Use high-quality audio** - Clear speech produces better transcriptions and translations
+4. **Review critical content** - Always review translations for important business or legal use
+
+## Need Help?
+
+If you have questions about translation capabilities or quality:
+
+- Check our [Language Support guide](/guides/language-support) for details on specific languages
+- Review the [Model documentation](/guides/whisper-model) to understand translation capabilities
+- Contact our support team at support@sky-scribe.com
+- Report translation issues to help us improve
