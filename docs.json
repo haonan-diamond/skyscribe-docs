@@ -32,15 +32,27 @@
             "pages": [
               "guides/transcription",
               "guides/translation",
-              "guides/language-support",
               "guides/extract",
               "guides/templates"
             ]
           },
           {
+            "group": "Use Cases",
+            "pages": [
+              "use-cases/overview",
+              "use-cases/business-sales",
+              "use-cases/team-collaboration",
+              "use-cases/hiring-research",
+              "use-cases/content-creation",
+              "use-cases/education",
+              "use-cases/professional-services"
+            ]
+          },
+          {
             "group": "Technology",
             "pages": [
-              "guides/whisper-model"
+              "guides/whisper-model",
+              "guides/language-support"
             ]
           }
         ]
