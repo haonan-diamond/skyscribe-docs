@@ -54,6 +54,12 @@
               "guides/whisper-model",
               "guides/language-support"
             ]
+          },
+          {
+            "group": "Affiliate",
+            "pages": [
+              "affiliate"
+            ]
           }
         ]
       },
