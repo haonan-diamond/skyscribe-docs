@@ -2,6 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "SkyScribe Docs",
+  "openapi": "api-reference/openapi.json",
   "colors": {
     "primary": "#7033ff",
     "light": "#7033ff",
@@ -55,10 +56,25 @@
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Transcribe",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create"
+              "api-reference/endpoint/create-from-url",
+              "api-reference/endpoint/create-from-file",
+              "api-reference/endpoint/get"
+            ]
+          },
+          {
+            "group": "Translate",
+            "pages": [
+              "api-reference/endpoint/translate",
+              "api-reference/endpoint/get-translation"
+            ]
+          },
+          {
+            "group": "Extract",
+            "pages": [
+              "api-reference/endpoint/extract",
+              "api-reference/endpoint/get-extraction"
             ]
           }
         ]

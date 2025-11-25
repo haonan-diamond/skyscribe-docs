@@ -1,115 +1,65 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Transcription API",
-    "version": "1.0.0",
-    "description": "Submit audio files or URLs for transcription and receive outputs in markdown, pdf, json, or summary formats."
+    "title": "SkyScribe API",
+    "version": "1.0.0"
   },
   "servers": [
-    { "url": "https://api.yourdomain.com" }
+    {
+      "url": "https://api.sky-scribe.com",
+      "description": "Production server"
+    }
   ],
   "security": [
-    { "bearerAuth": [] }
-  ],
-  "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    },
-    "schemas": {
-      "CreateTranscriptionRequestJson": {
-        "type": "object",
-        "required": ["formats"],
-        "properties": {
-          "audio_url": { "type": "string", "format": "uri" },
-          "language": { "type": "string", "example": "en-US" },
-          "formats": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "enum": ["markdown", "pdf", "json", "summary"]
-            }
-          },
-          "webhook_url": { "type": "string", "format": "uri" },
-          "callback_secret": { "type": "string" }
-        }
-      },
-      "CreateTranscriptionResponse": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string", "example": "tr_01JDX2V3YQ8C6A3V0K1W8E" },
-          "status": {
-            "type": "string",
-            "enum": ["queued", "processing", "completed", "failed"]
-          },
-          "language": { "type": "string", "example": "en-US" },
-          "requested_formats": {
-            "type": "array",
-            "items": { "type": "string" }
-          },
-          "created_at": { "type": "string", "format": "date-time" },
-          "expires_at": { "type": "string", "format": "date-time" },
-          "poll_url": { "type": "string", "example": "/v1/transcriptions/tr_123/status" },
-          "download_base": { "type": "string", "example": "/v1/transcriptions/tr_123/download" },
-          "results": {
-            "type": "object",
-            "properties": {
-              "json": { "type": "object" },
-              "markdown": { "type": "string" },
-              "summary": { "type": "string" }
-            }
-          },
-          "download_urls": {
-            "type": "object",
-            "additionalProperties": { "type": "string", "format": "uri" }
-          }
-        }
-      },
-      "Error": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "object",
-            "properties": {
-              "type": { "type": "string" },
-              "code": { "type": "string" },
-              "message": { "type": "string" }
-            }
-          }
-        }
-      }
+    {
+      "bearerAuth": []
     }
-  },
+  ],
+  "tags": [
+    {
+      "name": "Transcribe",
+      "description": "Transcribe audio and video files to text"
+    },
+    {
+      "name": "Translate",
+      "description": "Translate transcripts to different languages"
+    },
+    {
+      "name": "Extract",
+      "description": "Extract structured data from transcripts"
+    }
+  ],
   "paths": {
-    "/v1/transcriptions": {
+    "/v1/transcribe-url": {
       "post": {
-        "summary": "Create a transcription job (file or URL)",
-        "description": "Accepts either an uploaded file (multipart/form-data) or a remote audio URL (application/json).",
+        "operationId": "transcribeFromUrl",
+        "tags": ["Transcribe"],
+        "summary": "Transcribe from URL",
+        "description": "Provide a remote audio or video URL for transcription. Synchronously-oriented endpoint that may return a completed result or pending status for longer jobs.",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CreateTranscriptionRequestJson" }
-            },
-            "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "required": ["file", "formats"],
-                "properties": {
-                  "file": { "type": "string", "format": "binary" },
-                  "language": { "type": "string" },
-                  "formats": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "enum": ["markdown", "pdf", "json", "summary"]
-                    }
-                  },
-                  "webhook_url": { "type": "string", "format": "uri" },
-                  "callback_secret": { "type": "string" }
+                "$ref": "#/components/schemas/TranscribeRequest"
+              },
+              "examples": {
+                "url-transcription": {
+                  "summary": "Transcribe from URL",
+                  "value": {
+                    "audio_url": "https://example.com/audio.mp3",
+                    "language": "en-US",
+                    "format": ["json", "srt", "txt"],
+                    "diarize": true
+                  }
+                },
+                "async-with-callback": {
+                  "summary": "Async transcription with callback",
+                  "value": {
+                    "audio_url": "https://example.com/audio.mp3",
+                    "callback": "https://your-server.com/webhook",
+                    "format": ["json", "pdf", "markdown"]
+                  }
                 }
               }
             }
@@ -117,63 +67,275 @@
         },
         "responses": {
           "200": {
-            "description": "Transcription completed (synchronous)",
+            "description": "Transcription response. Returns one of two response types:\n\n**Option 1 - Completed (status: \"completed\")**: Returned when no callback URL is provided (synchronous processing). Response includes status, id, and data with all requested formats (defaults to json if not specified).\n\n**Option 2 - Pending (status: \"pending\")**: Only returned when callback URL is provided (asynchronous processing). Response includes status, id, and poll_url to check progress. Results will be sent to the callback URL when complete.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CreateTranscriptionResponse" }
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/TranscriptionCompletedResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PendingResponse"
+                    }
+                  ]
+                }
               }
             }
           },
-          "202": {
-            "description": "Transcription accepted for processing (asynchronous)",
+          "4XX": {
+            "description": "Client error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CreateTranscriptionResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
-          "400": {
-            "description": "Validation error",
+          "5XX": {
+            "description": "Server error",
             "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
-            }
-          },
-          "401": {
-            "description": "Authentication error",
-            "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
             }
           }
         }
       }
     },
-    "/v1/transcriptions/{id}/status": {
-      "get": {
-        "summary": "Check transcription job status",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
+    "/v1/transcribe-file": {
+      "post": {
+        "operationId": "transcribeFromFile",
+        "tags": ["Transcribe"],
+        "summary": "Transcribe from file upload",
+        "description": "Upload an audio or video file for transcription. Synchronously-oriented endpoint that may return a completed result or pending status for longer jobs.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Audio or video file to transcribe."
+                  },
+                  "language": {
+                    "type": "string",
+                    "description": "(Optional) Language hint (BCP-47 code). Defaults to 'auto'."
+                  },
+                  "format": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["doc", "pdf", "txt", "markdown", "srt", "vtt", "csv", "json"]
+                    },
+                    "description": "(Optional) Output formats to generate. Available: doc, pdf, txt, markdown, srt, vtt, csv, json. Defaults to [\"json\"] if not provided.",
+                    "default": ["json"]
+                  },
+                  "callback": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "(Optional) Webhook URL for async processing. If provided, the job runs asynchronously and results are sent to this URL when complete. Without callback, the endpoint processes synchronously."
+                  },
+                  "diarize": {
+                    "type": "boolean",
+                    "description": "(Optional) Enable speaker diarization."
+                  },
+                  "team_id": {
+                    "type": "string",
+                    "description": "(Optional) Team identifier. If not provided, uses your default workspace."
+                  },
+                  "folder_id": {
+                    "type": "string",
+                    "description": "(Optional) Folder identifier. If not provided, file will be added to the root of the workspace."
+                  },
+                  "output_config": {
+                    "type": "object",
+                    "description": "(Optional) Output configuration settings.",
+                    "properties": {
+                      "include_timestamps": {
+                        "type": "boolean",
+                        "description": "Include timestamp information."
+                      },
+                      "include_speakers": {
+                        "type": "boolean",
+                        "description": "Include speaker labels."
+                      }
+                    }
+                  }
+                },
+                "required": ["file"]
+              }
+            }
           }
-        ],
+        },
         "responses": {
           "200": {
-            "description": "Current job status",
+            "description": "Transcription response. Returns one of two response types:\n\n**Option 1 - Completed (status: \"completed\")**: Returned when no callback URL is provided (synchronous processing). Response includes status, id, and data with all requested formats (defaults to json if not specified).\n\n**Option 2 - Pending (status: \"pending\")**: Only returned when callback URL is provided (asynchronous processing). Response includes status, id, and poll_url to check progress. Results will be sent to the callback URL when complete.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": { "type": "string" },
-                    "status": {
-                      "type": "string",
-                      "enum": ["queued", "processing", "completed", "failed"]
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/TranscriptionCompletedResponse"
                     },
-                    "progress": { "type": "number", "minimum": 0, "maximum": 1 },
-                    "error_message": { "type": "string", "nullable": true }
+                    {
+                      "$ref": "#/components/schemas/PendingResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Client error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/translate": {
+      "post": {
+        "tags": ["Translate"],
+        "summary": "Translate an existing transcript or audio",
+        "description": "Translate content from the original language into a target language. Typically uses transcription_id to reference an existing transcript.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslateRequest"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Optional audio or video file to transcribe + translate."
+                  },
+                  "json": {
+                    "type": "string",
+                    "description": "JSON string matching TranslateRequest (all fields except file)."
                   }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Translation response. Returns one of two response types:\n\n**Option 1 - Completed (status: \"completed\")**: Returned when no callback URL is provided (synchronous processing). Response includes status, id, and data with all requested formats (defaults to json if not specified).\n\n**Option 2 - Pending (status: \"pending\")**: Only returned when callback URL is provided (asynchronous processing). Response includes status, id, and poll_url to check progress. Results will be sent to the callback URL when complete.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/TranslationCompletedResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PendingResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Client error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/extract": {
+      "post": {
+        "tags": ["Extract"],
+        "summary": "Extract structured data from a transcript",
+        "description": "Run SkyScribe extraction templates (e.g. summary, action items, chapters) on an existing transcript.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExtractRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Extraction response. Returns one of two response types:\n\n**Option 1 - Completed (status: \"completed\")**: Returned when no callback URL is provided (synchronous processing). Response includes status, id, and data with all requested formats (defaults to json if not specified).\n\n**Option 2 - Pending (status: \"pending\")**: Only returned when callback URL is provided (asynchronous processing). Response includes status, id, and poll_url to check progress. Results will be sent to the callback URL when complete.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ExtractionCompletedResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PendingResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Client error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -183,54 +345,751 @@
     },
     "/v1/transcriptions/{id}": {
       "get": {
-        "summary": "Retrieve completed transcription results",
+        "tags": ["Transcribe"],
+        "summary": "Get transcription status or result",
+        "description": "Poll for the status and result of a transcription job. Use this endpoint when you initiated a transcription with a callback URL. Returns one of two response types:\n\n**Option 1 - Completed (status: \"completed\")**: Transcription is finished. Response includes status, id, and data with all requested formats.\n\n**Option 2 - Pending (status: \"pending\")**: Job is still processing. Response includes status, id, and poll_url. Continue polling this endpoint until status becomes \"completed\".",
         "parameters": [
-          { "in": "path", "name": "id", "required": true, "schema": { "type": "string" } }
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
-            "description": "Results bundle",
+            "description": "Transcription status or result",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/CreateTranscriptionResponse" }
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/TranscriptionCompletedResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PendingResponse"
+                    }
+                  ]
+                }
               }
             }
           }
         }
       }
     },
-    "/v1/transcriptions/{id}/download": {
+    "/v1/translations/{id}": {
       "get": {
-        "summary": "Download a single transcription artifact",
+        "tags": ["Translate"],
+        "summary": "Get translation status or result",
+        "description": "Poll for the status and result of a translation job. Use this endpoint when you initiated a translation with a callback URL. Returns one of two response types:\n\n**Option 1 - Completed (status: \"completed\")**: Translation is finished. Response includes status, id, and data with all requested formats.\n\n**Option 2 - Pending (status: \"pending\")**: Job is still processing. Response includes status, id, and poll_url. Continue polling this endpoint until status becomes \"completed\".",
         "parameters": [
-          { "in": "path", "name": "id", "required": true, "schema": { "type": "string" } },
           {
-            "in": "query",
-            "name": "format",
+            "in": "path",
+            "name": "id",
             "required": true,
             "schema": {
-              "type": "string",
-              "enum": ["markdown", "pdf", "json", "summary"]
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Requested format delivered",
+            "description": "Translation status or result",
             "content": {
-              "application/pdf": {},
-              "text/markdown": {},
-              "application/json": {},
-              "text/plain": {}
-            }
-          },
-          "404": {
-            "description": "Job or format not found",
-            "content": {
-              "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/TranslationCompletedResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PendingResponse"
+                    }
+                  ]
+                }
+              }
             }
           }
         }
+      }
+    },
+    "/v1/extractions/{id}": {
+      "get": {
+        "tags": ["Extract"],
+        "summary": "Get extraction status or result",
+        "description": "Poll for the status and result of an extraction job. Use this endpoint when you initiated an extraction with a callback URL. Returns one of two response types:\n\n**Option 1 - Completed (status: \"completed\")**: Extraction is finished. Response includes status, id, and data with all requested formats.\n\n**Option 2 - Pending (status: \"pending\")**: Job is still processing. Response includes status, id, and poll_url. Continue polling this endpoint until status becomes \"completed\".",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Extraction status or result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ExtractionCompletedResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PendingResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "OutputConfig": {
+        "type": "object",
+        "description": "(Optional) Configuration for output formatting.",
+        "properties": {
+          "include_timestamps": {
+            "type": "boolean",
+            "description": "(Optional) Include timestamp information in the JSON data.",
+            "default": true
+          },
+          "include_speakers": {
+            "type": "boolean",
+            "description": "(Optional) Include speaker labels in the JSON data (requires diarization).",
+            "default": false
+          }
+        }
+      },
+      "Segment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "start": {
+            "type": "number",
+            "format": "float",
+            "description": "Start time in seconds."
+          },
+          "end": {
+            "type": "number",
+            "format": "float",
+            "description": "End time in seconds."
+          },
+          "text": {
+            "type": "string"
+          },
+          "speaker": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "start",
+          "end",
+          "text"
+        ]
+      },
+      "TranscribeRequest": {
+        "type": "object",
+        "description": "Transcription request. Must provide `audio_url` for URL-based transcription.",
+        "properties": {
+          "audio_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Remote audio/video URL (social media or cloud storage)."
+          },
+          "language": {
+            "type": "string",
+            "description": "(Optional) Language hint (BCP-47 code, e.g., 'en-US', 'es-ES'). Defaults to 'auto' for automatic detection."
+          },
+          "format": {
+            "type": "array",
+            "description": "(Optional) Output formats to generate. Available: doc, pdf, txt, markdown, srt, vtt, csv, json. Defaults to [\"json\"] if not provided.",
+            "items": {
+              "type": "string",
+              "enum": ["doc", "pdf", "txt", "markdown", "srt", "vtt", "csv", "json"],
+              "example": "json"
+            },
+            "default": ["json"]
+          },
+          "callback": {
+            "type": "string",
+            "format": "uri",
+            "description": "(Optional) Webhook URL for async processing. If provided, the job runs asynchronously and results are sent to this URL when complete. Without callback, the endpoint processes synchronously."
+          },
+          "diarize": {
+            "type": "boolean",
+            "description": "(Optional) Enable speaker diarization to identify different speakers.",
+            "default": false
+          },
+          "team_id": {
+            "type": "string",
+            "description": "(Optional) Team identifier. If not provided, uses your default workspace."
+          },
+          "folder_id": {
+            "type": "string",
+            "description": "(Optional) Folder identifier. If not provided, file will be added to the root of the workspace."
+          },
+          "output_config": {
+            "$ref": "#/components/schemas/OutputConfig"
+          }
+        },
+        "required": ["audio_url"]
+      },
+      "TranslateRequest": {
+        "type": "object",
+        "description": "Translate an existing transcript or audio.",
+        "properties": {
+          "transcription_id": {
+            "type": "string",
+            "description": "ID of an existing SkyScribe transcription."
+          },
+          "audio_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Optional audio/video URL to transcribe + translate."
+          },
+          "original_language": {
+            "type": "string",
+            "description": "Optional source language hint. Defaults to \"auto\" if undefined."
+          },
+          "target_language": {
+            "type": "string",
+            "description": "Target language code (BCP-47)."
+          },
+          "format": {
+            "type": "array",
+            "description": "(Optional) Output formats to generate. Available: doc, pdf, txt, markdown, srt, vtt, csv, json. Defaults to [\"json\"] if not provided.",
+            "items": {
+              "type": "string",
+              "enum": ["doc", "pdf", "txt", "markdown", "srt", "vtt", "csv", "json"],
+              "example": "json"
+            },
+            "default": ["json"]
+          },
+          "callback": {
+            "type": "string",
+            "format": "uri",
+            "description": "(Optional) Webhook URL for async processing. If provided, the job runs asynchronously and results are sent to this URL when complete. Without callback, the endpoint processes synchronously."
+          },
+          "diarize": {
+            "type": "boolean",
+            "description": "(Optional) Enable speaker diarization when processing audio."
+          },
+          "team_id": {
+            "type": "string",
+            "description": "(Optional) Team identifier. If not provided, uses your default workspace."
+          },
+          "folder_id": {
+            "type": "string",
+            "description": "(Optional) Folder identifier. If not provided, file will be added to the root of the workspace."
+          },
+          "output_config": {
+            "$ref": "#/components/schemas/OutputConfig"
+          }
+        },
+        "required": [
+          "target_language"
+        ]
+      },
+      "ExtractRequest": {
+        "type": "object",
+        "description": "Extract structured data from an existing transcript.",
+        "properties": {
+          "transcription_id": {
+            "type": "string",
+            "description": "ID of an existing SkyScribe transcription."
+          },
+          "language": {
+            "type": "string",
+            "description": "Optional language hint; defaults to \"auto\"."
+          },
+          "format": {
+            "type": "array",
+            "description": "(Optional) Output formats to generate. Available: doc, pdf, txt, markdown, srt, vtt, csv, json. Defaults to [\"json\"] if not provided.",
+            "items": {
+              "type": "string",
+              "enum": ["doc", "pdf", "txt", "markdown", "srt", "vtt", "csv", "json"],
+              "example": "json"
+            },
+            "default": ["json"]
+          },
+          "callback": {
+            "type": "string",
+            "format": "uri",
+            "description": "(Optional) Webhook URL for async processing. If provided, the job runs asynchronously and results are sent to this URL when complete. Without callback, the endpoint processes synchronously."
+          },
+          "team_id": {
+            "type": "string",
+            "description": "(Optional) Team identifier. If not provided, uses your default workspace."
+          },
+          "folder_id": {
+            "type": "string",
+            "description": "(Optional) Folder identifier. If not provided, file will be added to the root of the workspace."
+          },
+          "output_config": {
+            "$ref": "#/components/schemas/OutputConfig"
+          }
+        },
+        "required": [
+          "transcription_id"
+        ]
+      },
+      "PendingResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "poll_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to poll for updated status or completed result."
+          },
+          "estimated_wait_seconds": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "required": [
+          "status",
+          "id",
+          "poll_url"
+        ]
+      },
+      "TranscriptionCompletedResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "description": "Map of requested formats to their data. Only formats specified in the request will be present. If no formats were specified, defaults to json only.",
+            "properties": {
+              "json": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "language": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "segments": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Segment"
+                    }
+                  }
+                },
+                "required": [
+                  "language",
+                  "text"
+                ]
+              },
+              "doc": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the DOC file"
+                  }
+                }
+              },
+              "pdf": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the PDF file"
+                  }
+                }
+              },
+              "txt": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the TXT file"
+                  }
+                }
+              },
+              "markdown": {
+                "type": "string",
+                "nullable": true,
+                "description": "Markdown formatted text content"
+              },
+              "srt": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the SRT file"
+                  }
+                }
+              },
+              "vtt": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the VTT file"
+                  }
+                }
+              },
+              "csv": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the CSV file"
+                  }
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "status",
+          "id",
+          "data"
+        ]
+      },
+      "TranslationCompletedResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "description": "Map of requested formats to their data. Only formats specified in the request will be present. If no formats were specified, defaults to json only.",
+            "properties": {
+              "json": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "original_language": {
+                    "type": "string"
+                  },
+                  "target_language": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "segments": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "source_segment_id": {
+                          "type": "string"
+                        },
+                        "start": {
+                          "type": "number"
+                        },
+                        "end": {
+                          "type": "number"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "speaker": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "source_segment_id",
+                        "start",
+                        "end",
+                        "text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "original_language",
+                  "target_language",
+                  "text"
+                ]
+              },
+              "doc": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the DOC file"
+                  }
+                }
+              },
+              "pdf": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the PDF file"
+                  }
+                }
+              },
+              "txt": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the TXT file"
+                  }
+                }
+              },
+              "markdown": {
+                "type": "string",
+                "nullable": true,
+                "description": "Markdown formatted text content"
+              },
+              "srt": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the SRT file"
+                  }
+                }
+              },
+              "vtt": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the VTT file"
+                  }
+                }
+              },
+              "csv": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the CSV file"
+                  }
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "status",
+          "id",
+          "data"
+        ]
+      },
+      "ExtractionCompletedResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "description": "Map of requested formats to their data. Only formats specified in the request will be present. If no formats were specified, defaults to json only.",
+            "properties": {
+              "json": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "results": {
+                    "type": "object",
+                    "description": "Extraction payload (summary, action items, etc.).",
+                    "additionalProperties": true
+                  }
+                },
+                "required": [
+                  "results"
+                ]
+              },
+              "doc": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the DOC file"
+                  }
+                }
+              },
+              "pdf": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the PDF file"
+                  }
+                }
+              },
+              "txt": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the TXT file"
+                  }
+                }
+              },
+              "markdown": {
+                "type": "string",
+                "nullable": true,
+                "description": "Markdown formatted text content"
+              },
+              "srt": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the SRT file"
+                  }
+                }
+              },
+              "vtt": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the VTT file"
+                  }
+                }
+              },
+              "csv": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Download URL for the CSV file"
+                  }
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "status",
+          "id",
+          "data"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string",
+                "nullable": true
+              },
+              "param": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "type",
+              "message"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
       }
     }
   }
