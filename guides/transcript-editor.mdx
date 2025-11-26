@@ -18,7 +18,7 @@ First time using the editor? Follow this quick workflow to get started:
 
 <Steps>
 <Step title="Review Segmentation">
-Check if segment length matches your use case (subtitles need shorter, documents need longer). Use [**Resegment**](#resegment) to adjust timing before editing.
+Check if segment length matches your use case (subtitles need shorter, documents need longer). Use [**Resegment**](/guides/resegment) to adjust timing before editing.
 </Step>
 
 <Step title="Manual Editing">
@@ -66,7 +66,7 @@ Each segment is defined by its timestamp range (e.g., 0:00 to 0:04). Segments de
 - **Paragraphs** - Longer segments for documents, blog posts, and professional content
 
 <Note>
-Need different segment timing? Use [**Resegment**](#resegment) to adjust timing with preset styles or custom rules.
+Need different segment timing? Use [**Resegment**](/guides/resegment) to adjust timing with preset styles or custom rules.
 </Note>
 
 ## Manual Editing
@@ -212,24 +212,11 @@ Transform functions restructure or repurpose your transcript without editing the
 <AccordionGroup>
 <Accordion title="Resegment" icon="scissors">
 
-Change the timestamp intervals for each segment of your transcription. This tool restructures how your transcript is divided without changing the actual text.
+Restructure segment timing without changing the words. Ideal when you need cleaner subtitles, longer paragraphs, or tighter interview turns.
 
-**What it does:**
-- Adjusts segment length and boundaries
-- Re-divides transcript into different time intervals
-- Optimizes segment breaks for readability or subtitle timing
-- Maintains all text and speaker labels
-
-**Resegmentation options:**
-- **Preset Styles** - Subtitle, Sentence, or Paragraph formats
-- **Use Case Presets** - Optimized for Podcast, Interview, or Meeting
-- **Custom Control** - Define your own rules with word counts and time constraints
-
-**Best for:** Converting between formats (meeting notes to subtitles), fixing timing issues, or optimizing readability
-
-<Note>
-See the [Resegment section](#resegment) below for detailed instructions on how to resegment your transcript.
-</Note>
+<Card title="Resegment guide" icon="book-open" href="/guides/resegment">
+Learn when to resegment, compare presets, and follow step-by-step instructions →
+</Card>
 
 </Accordion>
 
@@ -278,82 +265,12 @@ Learn more about extraction templates and use cases →
 
 ## Resegment
 
-Change the timestamp intervals for each segment of your transcription. This tool restructures how your transcript is divided without changing the actual text.
-
-**What it does:**
-- Adjusts segment length and boundaries
-- Re-divides transcript into different time intervals
-- Optimizes segment breaks for readability or subtitle timing
-- Maintains all text and speaker labels
-
-<Warning>
-Resegmenting will override your current segment structure. If you've made segment-specific edits, consider doing this before edits.
-
-</Warning>
-
-**When to resegment:**
-
-- **Before editing** - Segments break mid-sentence, are too short/long, or have poor readability
-- **Converting formats** - Meeting notes to subtitles, subtitles to documents, or content to social media clips
-- **Fixing timing issues** - Mid-word breaks, inconsistent lengths, or unnatural pauses
-
-**How to resegment:**
-
-<Steps>
-<Step title="Open Agent Edit">
-Click the **star icon** at the top right to open Agent Edit, then select **Resegment** under Transform
-</Step>
-
-<Step title="Configure Resegmentation Rules">
-Click the **configure icon** to set your resegmentation rules. You can select a preset style or use case, or determine your own by applying word and time limits
-</Step>
-
-<Step title="Generate Preview">
-Review the preview of your new segment structure
-</Step>
-
-<Step title="Apply Changes">
-Confirm and apply the changes to your transcript
-</Step>
-</Steps>
-
-**Resegmentation options:**
-
-<Tabs>
-<Tab title="Preset Styles">
-
-| Style | Best For |
-|-------|----------|
-| **Subtitle** | Video subtitles, social media clips, accessibility captions |
-| **Sentence** | Balanced readability, general-purpose transcripts |
-| **Paragraph** | Long-form documents, blog posts, meeting notes |
-
-</Tab>
-
-<Tab title="Use Case Presets">
-
-| Use Case | Optimized For |
-|----------|---------------|
-| **Podcast** | Natural speech patterns, storytelling flow |
-| **Interview** | Q&A format, speaker turn-taking |
-| **Meeting** | Discussion flow, multiple speakers |
-
-</Tab>
-
-<Tab title="Custom Control">
-
-Define your own segmentation rules:
-- **Min/Max Words** - Control segment length by word count
-- **Min/Max Duration** - Control segment timing in seconds
-- **Combine both** - Set word and time constraints together for precise control
-
-</Tab>
-</Tabs>
+Need to change how your transcript is segmented? Visit the dedicated [Resegment guide](/guides/resegment) for when to use it, preset comparisons, and step-by-step instructions.
 
 
 ## Best Practices
 
-- **Check segmentation first** - [Resegment](#resegment) before editing if breaks are awkward or don't match your use case
+- **Check segmentation first** - [Resegment](/guides/resegment) before editing if breaks are awkward or don't match your use case
 - **Use playback to verify** - Cross-check Agent Edit suggestions with original audio for accuracy
 - **Test on segments first** - Try edits on selected segments before applying to entire transcript
 - **Complete editing before translation** - Translated transcripts cannot use Agent Edit, so finalize all changes first
@@ -388,7 +305,7 @@ Agent Edit applies changes across all segments at once.
 
 <Accordion title="My segments are too long/short. How do I fix this?">
 
-Use [**Resegment**](#resegment) to adjust your segment timing:
+Use [**Resegment**](/guides/resegment) to adjust your segment timing:
 
 1. Click the **star icon** to open Agent Edit
 2. Select **Resegment** under Transform
@@ -412,7 +329,7 @@ Export options are available from the transcript menu.
 
 <Accordion title="How do I create subtitles from my transcript?">
 
-1. [Resegment](#resegment) your transcript using the **Subtitle** preset style
+1. [Resegment](/guides/resegment) your transcript using the **Subtitle** preset style
 2. Use Agent Edit to fix punctuation and remove filler words if needed
 3. Export your transcript in SRT or VTT format for use in video editing software
 

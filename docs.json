@@ -32,6 +32,7 @@
             "pages": [
               "guides/transcription",
               "guides/transcript-editor",
+              "guides/resegment",
               "guides/translation",
               "guides/extract",
               "guides/download-export",
@@ -40,7 +41,7 @@
             ]
           },
           {
-            "group": "Use Cases",
+            "group": "Workflow examples",
             "pages": [
               "use-cases/overview",
               "use-cases/business-sales",
@@ -62,24 +63,6 @@
             "group": "Affiliate",
             "pages": [
               "affiliate"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create"
             ]
           }
         ]

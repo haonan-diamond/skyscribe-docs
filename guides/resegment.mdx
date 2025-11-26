@@ -1,0 +1,136 @@
+---
+title: Resegment transcripts
+subtitle: Restructure transcript timing for subtitles, documents, or any workflow
+description: Learn when and how to resegment SkyScribe transcripts using presets or custom rules.
+---
+
+## Overview
+
+Resegmenting changes how your transcript is divided without touching the underlying words. Adjust segment length, restructure timing for subtitles, or create longer paragraphs for documents in just a few clicks.
+
+Use resegmentation whenever:
+
+- Segments break mid-sentence or feel too short/long
+- You're converting meeting notes into subtitles (or the reverse)
+- Different workflows need different timing (podcasts vs. interviews vs. meetings)
+
+<Warning>
+Resegmenting overrides your current segment structure. Do it before heavy manual edits or Agent Edit tweaks targeted at specific segments.
+</Warning>
+
+## How to resegment
+
+<Steps>
+<Step title="Open Agent Edit">
+Open a transcript, click the **star icon** to launch Agent Edit (see the [Transcript Editor guide](/guides/transcript-editor#agent-edit) for an overview), then choose **Resegment** under the Transform tab.
+</Step>
+
+<Step title="Pick a preset or customize">
+Select a preset style, use case, or define your own word/time limits. Click the **configure icon** to adjust settings.
+</Step>
+
+<Step title="Preview the structure">
+Generate a preview to confirm the new timing and check a few segments with playback.
+</Step>
+
+<Step title="Apply the changes">
+Accept the new structure to rewrite segment boundaries across the transcript.
+</Step>
+</Steps>
+
+## Presets and options
+
+<Tabs>
+<Tab title="Preset Styles">
+
+| Style | Best For |
+|-------|----------|
+| **Subtitle** | Video captions, reels, accessibility overlays |
+| **Sentence** | Balanced readability for general editing |
+| **Paragraph** | Long-form documents, blog posts, summaries |
+
+</Tab>
+
+<Tab title="Use Case Presets">
+
+| Use Case | Optimized For |
+|----------|---------------|
+| **Podcast** | Natural storytelling flow |
+| **Interview** | Q&A structure and speaker turns |
+| **Meeting** | Multi-speaker conversations and action items |
+
+</Tab>
+
+<Tab title="Custom Control">
+
+Define your own segmentation rules:
+
+- Minimum/maximum words per segment
+- Minimum/maximum duration in seconds
+- Combine both for precise control
+
+</Tab>
+</Tabs>
+
+## Best practices
+
+- **Resegment before editing** – get structure right, then polish text
+- **Use playback** – jump to timestamps to confirm the new breaks sound natural
+- **Match the output** – subtitles need short clips; documents benefit from paragraphs
+- **Duplicate first** – for critical projects, copy the transcript so you can compare versions
+
+## Common workflows
+
+### Create subtitles from meetings
+
+1. Resegment with the **Subtitle** preset  
+2. Use [Agent Edit quick fixes](/guides/transcript-editor#agent-edit) (punctuation cleanup, filler-word removal) in the Transcript Editor  
+3. Export as SRT or VTT
+
+### Turn podcasts into articles
+
+1. Choose the **Paragraph** preset or set high min/max words  
+2. Use [Agent Edit transformations](/guides/transcript-editor#agent-edit) (e.g., rewrite in article tone) inside the Transcript Editor  
+3. Export as DOC/MD for publishing
+
+### Clean up messy interviews
+
+1. Resegment with the **Interview** preset to align turns  
+2. Enable speaker diarization if not already applied  
+3. Use find-and-replace or [Agent Edit custom prompts](/guides/transcript-editor#agent-edit) to standardize speaker names
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Does resegmenting change the actual text?">
+
+No. Resegment only alters where timestamps begin and end. The words, punctuation, and speaker labels remain the same.
+
+</Accordion>
+
+<Accordion title="What if I don't like the result?">
+
+Use undo or reload the transcript to revert. For important work, duplicate the job before experimenting so you can compare versions.
+
+</Accordion>
+
+<Accordion title="Can I resegment after translating?">
+
+Yes, but it is best to finalize structure first. Translated transcripts can't run Agent Edit, so resegment prior to translating when possible.
+
+</Accordion>
+
+<Accordion title="Is resegment available through the API?">
+
+Resegmentation currently lives in the dashboard editor. API-based control will be part of a future release.
+
+</Accordion>
+</AccordionGroup>
+
+## What's next
+
+Resegmenting usually happens early in an editing workflow. After you lock in segment timing:
+
+- Open the [Transcript Editor](/guides/transcript-editor) to clean up wording, fix punctuation, or remove filler words using Agent Edit actions explained in that guide
+- [Translate your transcript](/guides/translation) once structure and text are final so you can publish in other languages
+- [Export](/guides/download-export) formatted subtitles, documents, or structured data files to share with clients or teammates
