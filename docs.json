@@ -31,9 +31,12 @@
             "group": "Features",
             "pages": [
               "guides/transcription",
+              "guides/transcript-editor",
               "guides/translation",
               "guides/extract",
-              "guides/templates"
+              "guides/download-export",
+              "guides/templates",
+              "guides/workspaces"
             ]
           },
           {
