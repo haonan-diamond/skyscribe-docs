@@ -106,7 +106,6 @@ Processing time varies based on several factors:
 
 <Note>
 **Processing time factors:**
-- **AI Review**: Adds 10-20% more time for enhanced quality
 - **Speaker Diarization**: Requires additional processing for speaker identification
 - **Video files**: May take longer due to audio extraction
 - **Queue size**: Processing time increases during peak usage
@@ -186,10 +185,6 @@ The model may occasionally include text that wasn't actually spoken in the audio
 - The model combines predicting the next word with transcribing the audio
 - The model uses its general language knowledge, which can sometimes lead to inference beyond what was said
 
-<Tip>
-**Mitigation:** Our AI Review feature helps detect and correct hallucinations. Enable it in Advanced Settings for critical transcriptions.
-</Tip>
-
 #### 2. Performance Variation Across Languages
 
 The model's performance varies across different languages based on the amount of training data available for each language.
@@ -210,19 +205,6 @@ The model exhibits disparate performance across:
 Word error rates may be higher for certain demographic groups. We continuously work to improve fairness and accuracy across all user groups.
 </Note>
 
-#### 4. Repetitive Text Generation
-
-The sequence-to-sequence architecture can occasionally produce repetitive text. While we use:
-
-- Beam search techniques
-- Temperature scheduling
-- Post-processing algorithms
-
-...complete elimination of this behavior is not always possible, especially with:
-- Audio with unclear speech patterns
-- Very long recordings
-- Challenging audio conditions
-
 <Warning>
 **For critical use cases:** We recommend reviewing transcripts to ensure they meet your accuracy requirements.
 </Warning>
@@ -232,10 +214,9 @@ The sequence-to-sequence architecture can occasionally produce repetitive text. 
 To get optimal results with SkyScribe:
 
 1. **Use high-quality audio** when possible (clear speech, minimal background noise)
-2. **Enable AI Review** for important transcriptions to catch hallucinations and errors
-3. **Specify the language** manually if auto-detect isn't working well for your dialect
-4. **Review transcripts** for critical applications to ensure accuracy
-5. **Report issues** to our support team to help us improve
+2. **Specify the language** manually if auto-detect isn't working well for your dialect
+3. **Review transcripts** for critical applications to ensure accuracy
+4. **Report issues** to our support team to help us improve
 
 ## Learn More
 
@@ -244,6 +225,15 @@ Want to dive deeper into Whisper's capabilities and limitations?
 - Read the [Whisper research paper](https://cdn.openai.com/papers/whisper.pdf)
 - View the [Whisper model card](https://github.com/openai/whisper/blob/main/model-card.md)
 - Explore the [open-source code](https://github.com/openai/whisper)
+
+## What's Next?
+
+You've learned about the Whisper model powering SkyScribe's transcription and translation.
+
+**Want to learn more?**
+
+- Check out [language support](/guides/language-support) for details on specific languages
+- Learn how to [edit transcripts](/guides/transcript-editor) to improve accuracy
 
 ## Need Help?
 

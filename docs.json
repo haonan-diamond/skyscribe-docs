@@ -32,27 +32,32 @@
             "group": "Features",
             "pages": [
               "guides/transcription",
+              "guides/transcript-editor",
+              "guides/resegment",
               "guides/translation",
-              "guides/language-support",
               "guides/extract",
-              "guides/templates"
+              "guides/download-export",
+              "guides/templates",
+              "guides/workspaces"
+            ]
+          },
+          {
+            "group": "Workflow examples",
+            "pages": [
+              "use-cases/overview",
+              "use-cases/business-sales",
+              "use-cases/team-collaboration",
+              "use-cases/hiring-research",
+              "use-cases/content-creation",
+              "use-cases/education",
+              "use-cases/professional-services"
             ]
           },
           {
             "group": "Technology",
             "pages": [
-              "guides/whisper-model"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
+              "guides/whisper-model",
+              "guides/language-support"
             ]
           },
           {
@@ -75,6 +80,12 @@
             "pages": [
               "api-reference/endpoint/extract",
               "api-reference/endpoint/get-extraction"
+            ]
+            }, 
+            {
+            "group": "Affiliate",
+            "pages": [
+              "affiliate"
             ]
           }
         ]

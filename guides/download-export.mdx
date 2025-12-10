@@ -1,0 +1,350 @@
+---
+title: Download & Export
+subtitle: Export your transcripts in multiple formats for any use case
+description: Download your edited transcripts as PDF, DOC, TXT, SRT, VTT, and more with customizable formatting options.
+---
+
+## Overview
+
+After editing your transcript in the [Transcript Editor](/guides/transcript-editor), you can export it in multiple formats optimized for different use cases. Whether you need subtitles for video, a document for sharing, or structured data for processing, SkyScribe provides flexible export options.
+
+## Available Export Formats
+
+### Document Formats
+
+<AccordionGroup>
+<Accordion title="PDF" icon="file-pdf">
+
+Export as a professionally formatted PDF document.
+
+**Best for:**
+- Sharing with clients or stakeholders
+- Archiving and record-keeping
+- Printing physical copies
+- Professional presentations
+
+**Includes:**
+- Timestamps (optional)
+- Speaker labels (optional)
+- Custom formatting and styling
+- Metadata (date, duration, creator)
+
+</Accordion>
+
+<Accordion title="DOC (Word)" icon="file-word">
+
+Export as a Microsoft Word document (.docx).
+
+**Best for:**
+- Further editing in Word or Google Docs
+- Collaborative editing
+- Adding additional formatting or comments
+- Integration with existing workflows
+
+**Includes:**
+- Editable text with timestamps
+- Speaker labels
+- Paragraph formatting
+- Full editing capabilities
+
+</Accordion>
+
+<Accordion title="TXT (Plain Text)" icon="file-lines">
+
+Export as simple plain text.
+
+**Best for:**
+- Maximum compatibility
+- Quick copy-paste operations
+- Text processing and analysis
+- Minimal file size
+
+**Options:**
+- Include/exclude timestamps
+- Include/exclude speaker labels
+- Custom line breaks and formatting
+
+</Accordion>
+
+<Accordion title="MD (Markdown)" icon="markdown">
+
+Export as Markdown format.
+
+**Best for:**
+- Documentation and wikis
+- GitHub repositories
+- Static site generators
+- Developer-friendly workflows
+
+**Includes:**
+- Markdown formatting
+- Heading structure
+- Code-friendly syntax
+- Easy version control
+
+</Accordion>
+</AccordionGroup>
+
+### Subtitle Formats
+
+<AccordionGroup>
+<Accordion title="SRT (SubRip)" icon="closed-captioning">
+
+Export as SRT subtitle file.
+
+**Best for:**
+- Video editing software (Premiere, Final Cut, DaVinci Resolve)
+- YouTube and social media platforms
+- Most universal subtitle format
+- Maximum compatibility
+
+**Format example:**
+```
+1
+00:00:00,000 --> 00:00:04,000
+Welcome to today's meeting.
+
+2
+00:00:05,000 --> 00:00:09,000
+Thanks for joining us. Let's get started.
+```
+
+**Compatible with:**
+- Adobe Premiere Pro
+- Final Cut Pro
+- DaVinci Resolve
+- YouTube, Vimeo, Facebook
+- VLC Media Player
+
+</Accordion>
+
+<Accordion title="VTT (WebVTT)" icon="video">
+
+Export as WebVTT subtitle file.
+
+**Best for:**
+- HTML5 video players
+- Web-based video platforms
+- Modern streaming applications
+- Accessibility features
+
+**Format example:**
+```
+WEBVTT
+
+00:00:00.000 --> 00:00:04.000
+Welcome to today's meeting.
+
+00:00:05.000 --> 00:00:09.000
+Thanks for joining us. Let's get started.
+```
+
+**Compatible with:**
+- HTML5 video
+- Modern web players
+- Streaming platforms
+- Accessibility tools
+
+</Accordion>
+</AccordionGroup>
+
+### Data Formats
+
+<AccordionGroup>
+<Accordion title="CSV (Spreadsheet)" icon="table">
+
+Export as comma-separated values.
+
+**Best for:**
+- Data analysis in Excel or Google Sheets
+- Bulk processing and manipulation
+- Database imports
+- Statistical analysis
+
+**Columns include:**
+- Start time
+- End time
+- Speaker label
+- Text content
+- Segment ID
+- Additional metadata
+
+**Use cases:**
+- Analyzing speaker talk time
+- Searching and filtering content
+- Generating reports
+- Integration with other tools
+
+</Accordion>
+
+<Accordion title="JSON (Structured Data)" icon="code">
+
+Export as JSON format with full metadata.
+
+**Best for:**
+- API integrations
+- Custom processing scripts
+- Developer workflows
+- Programmatic access
+
+**Includes:**
+- Timestamps (start/end)
+- Speaker labels
+- Segment metadata
+- Transcription settings
+- Language and model information
+
+**Example structure:**
+```json
+{
+  "metadata": {
+    "duration": 1234,
+    "language": "en",
+    "created_at": "2024-01-15T10:30:00Z"
+  },
+  "segments": [
+    {
+      "id": 1,
+      "start": 0.0,
+      "end": 4.0,
+      "speaker": "Speaker 0",
+      "text": "Welcome to today's meeting."
+    }
+  ]
+}
+```
+
+</Accordion>
+</AccordionGroup>
+
+## How to Export
+
+<Steps>
+<Step title="Open Your Transcript">
+Navigate to the [Transcriptions Dashboard](https://app.sky-scribe.com/transcripts) and open your edited transcript in the [Transcript Editor](/guides/transcript-editor).
+</Step>
+
+<Step title="Click Export">
+Click the **download icon** button in the Transcript Editor.
+</Step>
+
+<Step title="Choose Format">
+Select your desired export format from the menu.
+</Step>
+
+<Step title="Customize Options">
+Configure export options:
+- Include/exclude timestamps
+- Include/exclude speaker labels
+</Step>
+
+<Step title="Download">
+Click **Download** to save the file to your device.
+</Step>
+</Steps>
+
+## Export Options
+
+When exporting, you can customize the following settings:
+
+### Timestamps
+
+- **Include timestamps** - Show start/end times for each segment
+- **Exclude timestamps** - Plain text without timing information
+- **Custom format** - Choose timestamp format (HH:MM:SS, seconds, milliseconds)
+
+### Speaker Labels
+
+- **Include speaker labels** - Show "Speaker 0", "Speaker 1", or custom names
+- **Exclude speaker labels** - Remove all speaker identification
+- **Format** - Choose how speaker labels appear (inline, separate line, prefix)
+
+## Best Practices
+
+<CardGroup cols={2}>
+<Card title="For Subtitles" icon="closed-captioning">
+- Use [Resegment](/guides/transcript-editor#resegment) with **Subtitle** preset first
+- Export as SRT or VTT
+- Test in your video editor before publishing
+</Card>
+
+<Card title="For Documents" icon="file-pdf">
+- Use [Resegment](/guides/transcript-editor#resegment) with **Paragraph** preset
+- Apply [Fix Punctuation](/guides/transcript-editor#edit-text) and [Fix Grammar](/guides/transcript-editor#edit-text)
+- Export as PDF or DOC
+</Card>
+
+<Card title="For Analysis" icon="chart-line">
+- Export as CSV or JSON
+- Import into Excel, Google Sheets, or analysis tools
+- Use for speaker analytics, keyword analysis, or reporting
+</Card>
+
+<Card title="For Developers" icon="code">
+- Export as JSON for full metadata
+- Use API for programmatic access
+- Integrate with custom workflows and tools
+</Card>
+</CardGroup>
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Will my edits be included in the export?">
+
+Yes, all exports include your latest edits. Make sure to complete all editing before exporting to ensure your changes are reflected.
+
+</Accordion>
+
+<Accordion title="What's the best format for video subtitles?">
+
+Use **SRT** for maximum compatibility with video editing software and platforms. Use **VTT** if you're embedding subtitles in HTML5 video players or modern web applications.
+
+Before exporting, [resegment](/guides/transcript-editor#resegment) your transcript using the **Subtitle** preset for optimal timing.
+
+</Accordion>
+
+<Accordion title="Can I re-export after making changes?">
+
+Yes! You can export as many times as you need. Each export reflects the current state of your transcript, so you can edit and re-export as needed.
+
+</Accordion>
+
+<Accordion title="How do I add subtitles to my video?">
+
+After exporting as SRT or VTT:
+
+1. Open your video in editing software (Premiere, Final Cut, DaVinci Resolve, etc.)
+2. Import the subtitle file
+3. The subtitles will automatically sync with your video timeline
+4. Adjust styling (font, position, background) as needed
+5. Export your video with embedded or separate subtitle track
+
+For YouTube: Upload the SRT/VTT file directly in the video editor under "Subtitles."
+
+</Accordion>
+</AccordionGroup>
+
+## What's Next?
+
+<CardGroup cols={2}>
+<Card title="Transcript Editor" icon="pen-to-square" href="/guides/transcript-editor">
+Learn how to edit and refine your transcripts before exporting
+</Card>
+
+<Card title="Language Support" icon="language" href="/guides/language-support">
+See all supported languages and regions for transcription
+</Card>
+
+<Card title="Whisper Model" icon="wand-magic-sparkles" href="/guides/whisper-model">
+Understand which Whisper model to use for best results
+</Card>
+
+<Card title="Translation" icon="globe" href="/guides/translation">
+Translate your transcripts to other languages
+</Card>
+</CardGroup>
+
+## Need Help?
+
+If you have questions about downloading or exporting transcripts, contact our support team at [support@sky-scribe.com](mailto:support@sky-scribe.com).

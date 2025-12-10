@@ -1,0 +1,370 @@
+---
+title: Transcript Editor
+subtitle: Edit and refine your transcriptions with intelligent editing tools
+description: Powerful editing tools to perfect your transcripts with manual edits, Agent Edit, and advanced transformations.
+---
+
+## Overview
+
+After your transcription is complete, you can open and edit it using SkyScribe's powerful Transcript Editor. Access your transcriptions from the [**Transcriptions Dashboard**](https://app.sky-scribe.com/transcripts) and click on any completed task to open the editor.
+
+The Transcript Editor combines manual editing capabilities with Agent Edit, allowing you to refine your transcripts quickly and accurately.
+
+## Quick Start Guide
+
+<Tip>
+First time using the editor? Follow this quick workflow to get started:
+</Tip>
+
+<Steps>
+<Step title="Review Segmentation">
+Check if segment length matches your use case (subtitles need shorter, documents need longer). Use [**Resegment**](/guides/resegment) to adjust timing before editing.
+</Step>
+
+<Step title="Manual Editing">
+Click the **pen icon** to [manually edit](#manual-editing) any segment. Use playback to jump to specific moments and verify accuracy.
+</Step>
+
+<Step title="Agent Edit">
+Click the **star icon** for [Agent Edit](#agent-edit). Select segments to target specific sections, or apply to the entire transcript. Choose quick actions or custom instructions.
+</Step>
+
+<Step title="Review & Accept Changes">
+Preview all proposed changes, then accept individually (Y/N keys) or click Accept All.
+</Step>
+</Steps>
+
+## Editor Interface
+
+When you open a transcription task, you'll see:
+
+- **Transcription Details** - Status, creation date, duration, and creator
+- **Transcript Display** - Timestamped segments with speaker labels (if enabled)
+- **Playback Controls** - Audio/video player synced with your transcript
+
+Your transcript is displayed with timestamps and speaker labels:
+
+```
+0:00 - 0:04
+Speaker 0: Welcome to today's meeting.
+
+0:05 - 0:09
+Speaker 1: Thanks for joining us. Let's get started.
+
+0:10 - 0:15
+Speaker 0: I'd like to begin with project updates.
+```
+
+**Playback Navigation:**
+Click on any word or phrase in the transcript to jump to that exact moment in the audio/video. This makes it easy to verify accuracy, find specific moments, and identify where segment breaks occur.
+
+**Understanding Segments:**
+Each segment is defined by its timestamp range (e.g., 0:00 to 0:04). Segments determine how your transcript is broken into chunks - similar to paragraphs in a document. Different use cases require different segmentation:
+
+- **Subtitles** - Short segments (1-5 seconds) for video captions and social media
+- **Sentences** - Balanced segments for general readability and review
+- **Paragraphs** - Longer segments for documents, blog posts, and professional content
+
+<Note>
+Need different segment timing? Use [**Resegment**](/guides/resegment) to adjust timing with preset styles or custom rules.
+</Note>
+
+## Manual Editing
+
+Click the **pen icon** at the top right to manually edit your transcript.
+
+**Manual edit is best for:**
+- Correcting specific names, technical terms, or jargon
+- Making precise changes that require human judgment
+- Adding context or clarifications
+- Fine-tuning after using Agent Edit
+
+**Find and Replace:**
+Use the built-in find and replace tool to make bulk changes across your entire transcript or selected segments.
+
+
+## Agent Edit
+
+Click the **star icon** at the top right to access Agent Edit. This AI-powered tool gives you powerful options to transform your transcript with quick actions, custom prompts, and intelligent editing.
+
+**How to use:**
+1. **Select segments** (optional) - Click segments to select them before opening Agent Edit, or apply edits to the entire transcript
+2. **Choose an action** - Select from the editing or transformation options below
+3. **Review changes** - Preview all proposed edits with crossed-out original text and highlighted replacements
+4. **Accept or reject** - Use Y/N keys to review individually, or click "Accept All"
+
+### Edit Text
+
+Edit text functions modify the content of your transcript to improve punctuation, grammar, clarity, and compliance.
+
+<AccordionGroup>
+<Accordion title="Fix Punctuation" icon="period">
+
+Automatically correct punctuation throughout your transcript.
+
+**What it fixes:**
+- Missing periods, commas, and question marks
+- Incorrect punctuation placement
+- Sentence boundary detection
+- Quote mark formatting
+
+**Best for:** Transcripts with basic punctuation issues
+
+</Accordion>
+
+<Accordion title="Capitalize Properly" icon="text-size">
+
+Apply proper capitalization rules to your text.
+
+**What it corrects:**
+- Sentence-initial capitalization
+- Proper nouns and names
+- Title capitalization
+- Acronyms and abbreviations
+
+**Best for:** Transcripts with inconsistent capitalization
+
+</Accordion>
+
+<Accordion title="Remove Filler Words" icon="eraser">
+
+Eliminate verbal fillers and disfluencies for cleaner, more professional text.
+
+**Removes:**
+- "Um", "uh", "like"
+- "You know", "I mean"
+- Repetitive phrases
+- False starts and stutters
+
+**Best for:** Content intended for publication, presentations, or professional documentation
+
+</Accordion>
+
+<Accordion title="Fix Grammar" icon="spell-check">
+
+Correct grammatical errors and improve sentence structure.
+
+**What it fixes:**
+- Subject-verb agreement
+- Verb tense consistency
+- Sentence fragments
+- Run-on sentences
+- Word choice and phrasing
+
+**Best for:** Improving readability and professionalism
+
+</Accordion>
+
+<Accordion title="Content Moderation" icon="shield-check">
+
+Identify and flag potentially sensitive or inappropriate content.
+
+**Detects:**
+- Profanity and offensive language
+- Sensitive topics
+- Inappropriate content
+- Content policy violations
+
+**Best for:** Content that will be published or shared publicly
+
+</Accordion>
+
+<Accordion title="PII Redaction" icon="user-shield">
+
+Automatically detect and redact Personally Identifiable Information (PII).
+
+**Redacts:**
+- Names and personal identifiers
+- Email addresses and phone numbers
+- Social Security numbers
+- Credit card numbers
+- Addresses and locations
+- Other sensitive personal data
+
+**Best for:** Compliance requirements, privacy protection, and sharing transcripts externally
+
+<Warning>
+Always review PII redaction results to ensure all sensitive information is properly handled. Automated detection may not catch everything.
+</Warning>
+
+</Accordion>
+
+<Accordion title="Custom Prompt" icon="wand-magic-sparkles">
+
+Use a custom AI prompt to make specific edits tailored to your needs.
+
+**Examples:**
+- "Convert to formal business language"
+- "Simplify for a general audience"
+- "Add technical terminology for this field"
+- "Format as interview Q&A"
+- "Rewrite in active voice"
+
+**Best for:** Specialized editing needs not covered by preset options
+
+</Accordion>
+</AccordionGroup>
+
+### Transform
+
+Transform functions restructure or repurpose your transcript without editing the original text.
+
+<AccordionGroup>
+<Accordion title="Resegment" icon="scissors">
+
+Restructure segment timing without changing the words. Ideal when you need cleaner subtitles, longer paragraphs, or tighter interview turns.
+
+<Card title="Resegment guide" icon="book-open" href="/guides/resegment">
+Learn when to resegment, compare presets, and follow step-by-step instructions →
+</Card>
+
+</Accordion>
+
+<Accordion title="Translate Transcript" icon="language">
+
+Translate your transcript into another language using AI.
+
+**Capabilities:**
+- 99+ supported languages
+- Maintains timestamps and speaker labels
+- Natural, contextual translations
+- Preserves formatting and structure
+
+**Best for:** Creating multilingual versions of your content to reach international audiences
+
+<Warning>
+Complete all editing before translating. Translated transcripts cannot use Agent Edit for further changes. Make sure punctuation, grammar, and content are finalized first.
+</Warning>
+
+<Card title="Translation Guide" icon="book-open" href="/guides/translation">
+View supported languages and translation best practices →
+</Card>
+
+</Accordion>
+
+<Accordion title="Extract Information" icon="magnifying-glass-chart">
+
+Use pre-built templates to extract structured information from your transcript.
+
+**Available templates:**
+- **Summary** - Generate concise overview of main points
+- **To-Do List** - Extract action items and tasks
+- **Show Notes** - Create podcast/video show notes
+- **Meeting Notes** - Identify main ideas and takeaways
+- **Repurpose Content** - Transform for different formats (blog posts, social media, etc.)
+- **Custom Extraction** - Write your own prompt for specialized information extraction
+
+**Best for:** Creating derivative content, meeting summaries, podcast show notes, content repurposing
+
+<Card title="Extraction Guide" icon="list-check" href="/guides/extract">
+Learn more about extraction templates and use cases →
+</Card>
+
+</Accordion>
+</AccordionGroup>
+
+## Resegment
+
+Need to change how your transcript is segmented? Visit the dedicated [Resegment guide](/guides/resegment) for when to use it, preset comparisons, and step-by-step instructions.
+
+
+## Best Practices
+
+- **Check segmentation first** - [Resegment](/guides/resegment) before editing if breaks are awkward or don't match your use case
+- **Use playback to verify** - Cross-check Agent Edit suggestions with original audio for accuracy
+- **Test on segments first** - Try edits on selected segments before applying to entire transcript
+- **Complete editing before translation** - Translated transcripts cannot use Agent Edit, so finalize all changes first
+
+## FAQ
+
+<AccordionGroup>
+<Accordion title="Can I find where the transcription is in the video/audio file?">
+
+Yes! Click on any word or phrase in your transcript to jump to that exact moment in the audio/video player.
+
+This makes it easy to:
+- Verify transcription accuracy
+- Find specific moments quickly
+- Identify where segments start and end
+- Cross-check Agent Edit suggestions with the original recording
+
+</Accordion>
+
+<Accordion title="How do I apply mass changes like fixing punctuation across the whole transcript?">
+
+Use [**Agent Edit**](#agent-edit) for bulk changes:
+
+1. Click the **star icon** to open Agent Edit (don't select segments to apply to entire transcript)
+2. Choose an action like **Fix Punctuation**, **Remove Filler Words**, or **Fix Grammar**
+3. Review all proposed changes
+4. Click "Accept All" or use Y/N keys to review individually
+
+Agent Edit applies changes across all segments at once.
+
+</Accordion>
+
+<Accordion title="My segments are too long/short. How do I fix this?">
+
+Use [**Resegment**](/guides/resegment) to adjust your segment timing:
+
+1. Click the **star icon** to open Agent Edit
+2. Select **Resegment** under Transform
+3. Choose a preset style (Subtitle, Sentence, or Paragraph) or customize with your own word/time limits
+4. Review the preview and apply changes
+
+This restructures your entire transcript with the timing you need.
+
+</Accordion>
+
+<Accordion title="Can I export my edited transcript?">
+
+Yes! After editing, you can export your transcript in various formats including:
+- Plain text (TXT)
+- Subtitle formats (SRT, VTT)
+- JSON with timestamps
+
+Export options are available from the transcript menu.
+
+</Accordion>
+
+<Accordion title="How do I create subtitles from my transcript?">
+
+1. [Resegment](/guides/resegment) your transcript using the **Subtitle** preset style
+2. Use Agent Edit to fix punctuation and remove filler words if needed
+3. Export your transcript in SRT or VTT format for use in video editing software
+
+</Accordion>
+
+<Accordion title="What's the best way to clean up conversational audio?">
+
+For podcasts, interviews, or casual recordings:
+
+1. Start with **Fix Punctuation** to add proper sentence structure
+2. Use **Remove Filler Words** to eliminate "um", "uh", and repetitive phrases
+3. Apply **Fix Grammar** if you want more polished, professional text
+4. Manually edit any speaker-specific terminology or names
+
+</Accordion>
+
+<Accordion title="Can I edit a transcript after translating it?">
+
+No, once a transcript is translated, Agent Edit is no longer available, including editing text and resegmentation.
+
+You can still use [Manual Editing](#manual-editing) to make changes to translated transcripts.
+
+</Accordion>
+</AccordionGroup>
+
+## What's Next?
+
+You've learned how to edit and refine your transcripts using the Transcript Editor.
+
+**Want to learn more?**
+
+- Learn how to [download and export](/guides/download-export) your edited transcripts in multiple formats
+- Explore [translation](/guides/translation) to convert transcripts to other languages
+- Check out [language support](/guides/language-support) for best practices with different languages
+
+## Need Help?
+
+If you have questions about the Transcript Editor, contact our support team at [support@sky-scribe.com](mailto:support@sky-scribe.com).
