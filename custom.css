@@ -1,0 +1,15 @@
+/* Increase logo size */
+nav img {
+  max-height: 35px !important;
+  height: auto !important;
+  width: auto !important;
+}
+
+/* Alternative selector for logo container */
+.navbar-logo img,
+[class*="logo"] img,
+a[href="/"] img {
+  max-height: 35px !important;
+  height: auto !important;
+  width: auto !important;
+}
