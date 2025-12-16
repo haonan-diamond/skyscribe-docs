@@ -60,12 +60,25 @@
               "guides/language-support"
             ]
           },
+            {
+            "group": "Affiliate",
+            "pages": [
+              "affiliate"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          
           {
             "group": "Transcribe",
             "pages": [
+              "api-reference/endpoint/get",
               "api-reference/endpoint/create-from-url",
-              "api-reference/endpoint/create-from-file",
-              "api-reference/endpoint/get"
+              "api-reference/endpoint/create-from-file"
+            
             ]
           },
           {
@@ -81,13 +94,7 @@
               "api-reference/endpoint/extract",
               "api-reference/endpoint/get-extraction"
             ]
-            }, 
-            {
-            "group": "Affiliate",
-            "pages": [
-              "affiliate"
-            ]
-          }
+            }
         ]
       }
     ]
